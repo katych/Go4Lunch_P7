@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mapView"
+        android:icon="@drawable/ic_map"
+        android:title="Map View"
+        android:enabled="true"
+        />
+
+    <item
+        android:id="@+id/listView"
+        android:icon="@drawable/ic_view_list"
+        android:title="List View"
+        android:enabled="true"
+        />
+    <item
+        android:id="@+id/workmates"
+        android:icon="@drawable/ic_group"
+        android:title="Workmates"
+        android:enabled="true"
+        />
+</menu>

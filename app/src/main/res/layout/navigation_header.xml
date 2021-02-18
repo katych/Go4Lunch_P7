@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigationHeader"
+        android:layout_width="match_parent"
+        android:layout_height="176dp"
+        android:background="@drawable/ic_restaurant_image"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewLogoDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="9dp"
+            android:text="Go4Lunch"
+            android:textColor="@android:color/white"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageProfileDrawer"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:contentDescription="@null"
+           android:src="@drawable/ic_identity"
+            app:layout_constraintBottom_toBottomOf="@+id/nameProfileDrawer"
+            app:layout_constraintEnd_toStartOf="@+id/emailProfileDrawer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nameProfileDrawer" />
+
+        <TextView
+            android:id="@+id/nameProfileDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:text="Name"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@+id/emailProfileDrawer"
+            app:layout_constraintStart_toStartOf="@+id/emailProfileDrawer" />
+
+        <TextView
+            android:id="@+id/emailProfileDrawer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="147dp"
+            android:layout_marginRight="147dp"
+            android:layout_marginBottom="19dp"
+            android:text="Email"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageProfileDrawer" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
