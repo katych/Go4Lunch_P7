@@ -21,6 +21,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -56,15 +57,14 @@ public class AuthenticationActivity extends BaseActivity {
     @Override
     protected Toolbar getToolbar() { return null; }
 
-   /* @Override
+    @Override
     protected void onResume() {
         super.onResume();
         // Checks if user is signed in (non-null)
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             this.startMainActivity();
         }
-    }*/
-
+    }
 
     //------------------
     //OnClick
