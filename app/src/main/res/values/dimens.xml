@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- AUTHENTICATION ACTIVITY -->
+    <dimen name="size_logo_text">70dp</dimen>
+    <dimen name="size_subtitle_text">12sp</dimen>
+    <dimen name="size_text_button">18sp</dimen>
+    <dimen name="auth_activity_margin_start">60dp</dimen>
+    <dimen name="auth_activity_padding_button">10dp</dimen>
+    <dimen name="width_logo_image">250dp</dimen>
+    <dimen name="height_logo_image">180dp</dimen>
+    <dimen name="margin_top_logo_image">48dp</dimen>
+    <dimen name="margin_button">32dp</dimen>
+
+</resources>

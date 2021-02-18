@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_restaurant_image"
+    android:id="@+id/constraintLayout_auth"
+    tools:context=".views.activities.AuthenticationActivity"
+   >
+
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="@dimen/width_logo_image"
+        android:layout_height="@dimen/height_logo_image"
+        android:layout_marginTop="@dimen/margin_top_logo_image"
+        android:src="@drawable/ic_logo_go4lunch"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLogo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_logo"
+        style="@style/text_logo"
+        app:layout_constraintBottom_toTopOf="@+id/textViewLogoMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo" />
+
+    <TextView
+        android:id="@+id/textViewLogoMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_logo_subtitle"
+        style="@style/subtitle_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.589"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogo" />
+
+    <Button
+        android:id="@+id/googleLoginButton"
+        style="@style/googleButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginEnd="@dimen/margin_button"
+        android:layout_marginTop="76dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewLogoMessage" />
+
+    <Button
+        android:id="@+id/facebookLoginButton"
+        style="@style/facebookButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="@+id/googleLoginButton"
+        app:layout_constraintTop_toBottomOf="@+id/googleLoginButton"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginEnd="@dimen/margin_button"/>
+
+    <Button
+        android:id="@+id/emailLoginButton"
+        style="@style/emailButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="@+id/facebookLoginButton"
+        app:layout_constraintTop_toBottomOf="@+id/facebookLoginButton"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginEnd="@dimen/margin_button"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

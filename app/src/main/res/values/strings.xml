@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">Go4Lunch</string>
+
+    <string name="facebook_application_id">720875585239902</string>
+    <string name="fb_login_protocol_scheme">fb720875585239902</string>
+
+    <!-- AUTHENTICATION ACTIVITY-->
+    <string name="text_logo">Go4Lunch</string>
+    <string name="text_logo_subtitle">Find a nice restaurant and invite your co-workers for lunch</string>
+    <string name="google_login"> Sign with google </string>
+    <string name="facebook_login"> Sign with facebook </string>
+    <string name="email_login"> Sign with email </string>
+
+    <string name="connection_succeed">Authentication granted !</string>
+    <string name="error_authentication_canceled">Authentication canceled</string>
+    <string name="no_name_found">No name found</string>
+    <string name="no_mail_found">No mail found</string>
+    <string name="error_no_internet">No internet connexion!</string>
+    <string name="error_unknown_error">An error occurred</string>
+
 </resources>

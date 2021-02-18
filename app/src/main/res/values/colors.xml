@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimary">#FF5721</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="colorAccentWhite">#FFFF</color>
+    <color name="colorFacebook">#507CBF</color>
+    <color name="colorGoogle">#DF4931</color>
+    <color name="colorEmail">#FFB900</color>
+
+    <color name="colorOrangeNav">#FE8B50</color>
+    <color name="secondary_text">#424242</color>
+    <color name="color_workers">#BEBDBD</color>
+    <color name="background">#D3D1D1</color>
 </resources>
