@@ -10,5 +10,16 @@
     <dimen name="height_logo_image">180dp</dimen>
     <dimen name="margin_top_logo_image">48dp</dimen>
     <dimen name="margin_button">32dp</dimen>
+    <dimen name="image_fab_30">30dp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="margin_5">5dp</dimen>
+    <dimen name="margin_top_20">20dp</dimen>
+    <dimen name="margin_fab_16">16dp</dimen>
+    <dimen name="image_button_50">50dp</dimen>
+    <dimen name="margin_start_10">10dp</dimen>
+    <dimen name="image_button_20">20dp</dimen>
+    <dimen name="text_size_18">18sp</dimen>
+    <dimen name="text_size_12">12sp</dimen>
+
 
 </resources>

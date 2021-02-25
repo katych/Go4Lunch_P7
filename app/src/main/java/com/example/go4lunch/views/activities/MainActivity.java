@@ -3,9 +3,12 @@ package com.example.go4lunch.views.activities;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +19,8 @@ import com.example.go4lunch.R;
 import com.example.go4lunch.base.BaseActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +36,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
+    private FirebaseUser user;
+
 
 
     @Override
@@ -86,13 +93,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         switch (id) {
             case R.id.drawer_yourLunch:
-                Toast.makeText(this, "Lunch ", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, RestaurantDetails.class);
+                startActivity(intent);
                 break;
             case R.id.drawer_settings:
                 Toast.makeText(this, "settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.drawer_logOut:
-                Toast.makeText(this, "logout ", Toast.LENGTH_SHORT).show();
+                createAndShowPopUpLogOut();
                 break;
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -134,5 +142,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         inflater.inflate(R.menu.toolbar_menu, menu);
         configureDrawerLayout();
         return true;
+    }
+
+    private void createAndShowPopUpLogOut()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.main_activity_pop_up_log_out_title));
+        builder.setMessage(getResources().getString(R.string.main_activity_pop_up_log_out_message));
+        builder.setPositiveButton(getResources().getString(R.string.main_activity_pop_up_yes), (dialogInterface, i) -> signOutCurrentUser());
+        builder.setNegativeButton(getResources().getString(R.string.main_activity_pop_up_no), null);
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    /**
+     * Signs out the current user of Firebase
+     */
+    private void signOutCurrentUser() {
+            FirebaseAuth.getInstance().signOut();
+            startAuthenticationActivity();
+            finishAffinity();
+        }
+
+    // Intent used for navigation item
+    private void startAuthenticationActivity() {
+        Intent intent = new Intent(this, AuthenticationActivity.class);
+        startActivity(intent);
     }
 }

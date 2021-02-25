@@ -29,4 +29,23 @@
     <string name="workers_toolbar">Workers</string>
 
 
+    <!-- MAIN ACTIVITY POP UP MESSAGE-->
+    <string name="main_activity_success_log_out">Log out with success</string>
+    <string name="main_activity_pop_up_log_out_title">LOG OUT</string>
+    <string name="main_activity_pop_up_log_out_message">Are you sure that you want to log out ?</string>
+    <string name="main_activity_pop_up_yes">YES</string>
+    <string name="main_activity_pop_up_no">NO</string>
+
+
+    <!-- RESTAURANT DETAILS -->
+    <string name="call">CALL</string>
+    <string name="like">LIKE</string>
+    <string name="web_site">WEB SITE</string>
+    <string name="favorite_restaurant_message">Restaurant added to your favorite list</string>
+    <string name="dislike">Dislike</string>
+    <string name="chosen_restaurant">You have chosen this restaurant</string>
+    <string name="no_telephone_number_for_this_restaurant">No telephone number for this restaurant</string>
+    <string name="no_website_for_restaurant">No website for this restaurant</string>
+
+
 </resources>

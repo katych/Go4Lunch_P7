@@ -53,4 +53,57 @@
     <item name="android:drawableStart">@drawable/ic_email</item>
     <item name="android:text">@string/email_login</item>
     </style>
+
+
+<!-- RESTAURANT DETAILS -->
+    <style name="text_style_button_detail">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- workers item list  -->
+    <style name="worker_image">
+        <item name="android:layout_width">@dimen/image_button_50</item>
+        <item name="android:layout_height">@dimen/image_button_50</item>
+        <item name="android:layout_marginTop">@dimen/margin_start_10</item>
+        <item name="android:layout_marginBottom">@dimen/margin_start_10</item>
+        <item name="android:layout_marginStart">@dimen/margin_start_10</item>
+    </style>
+
+    <style name="worker_name">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:layout_marginStart">@dimen/margin_top_20</item>
+
+    </style>
+
+    <!-- LIST VIEW ITEM -->
+
+    <style name="stars">
+        <item name="android:layout_height">@dimen/image_button_20</item>
+        <item name="android:layout_width">@dimen/image_button_20</item>
+        <item name="android:src">@drawable/ic_star_yellow</item>
+    </style>
+
+    <style name="item_workers_style">
+        <item name="android:textSize">@dimen/text_size_18</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="item_text_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="item_text_open">
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
 </resources>
