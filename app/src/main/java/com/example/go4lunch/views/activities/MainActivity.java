@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 
 import com.example.go4lunch.R;
 import com.example.go4lunch.base.BaseActivity;
+import com.example.go4lunch.views.fragment.MapsFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +39,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     NavigationView navigationView;
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
-    private FirebaseUser user;
+    private Fragment mFragment;
 
 
 
@@ -55,10 +58,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+
+        if (mFragment == null) {
+            mFragment = new MapsFragment();
+        }
+        configureFragment(mFragment);
+        this.configureToolBar(getString(R.string.I_m_hungry));
+
         configureDrawerLayout();
         configureNavigationView();
         configureBottomNavigation();
-        this.configureToolBar(getString(R.string.I_m_hungry));
     }
 
     /**
@@ -113,8 +122,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.mapView:
-                    Toast.makeText(this, "mapView ", Toast.LENGTH_SHORT).show();
-
+                    this.mFragment = new MapsFragment();
+                    configureFragment(mFragment);
+                    toolbar.setTitle(getResources().getString(R.string.I_m_hungry));
                     break;
 
                 case R.id.listView:
@@ -168,5 +178,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private void startAuthenticationActivity() {
         Intent intent = new Intent(this, AuthenticationActivity.class);
         startActivity(intent);
+    }
+
+
+    /**
+     * create new fragment
+     *
+     * @param fragment to configure
+     */
+    private void configureFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragment)
+                .commit();
     }
 }

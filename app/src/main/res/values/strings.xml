@@ -47,5 +47,10 @@
     <string name="no_telephone_number_for_this_restaurant">No telephone number for this restaurant</string>
     <string name="no_website_for_restaurant">No website for this restaurant</string>
 
+    <!-- map fragment -->
+    <string name="permission_denied">Permission denied</string>
+    <string name="my_position">My position</string>
+    <string name="title_activity_settings">Settings</string>
+
 
 </resources>
