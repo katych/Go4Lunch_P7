@@ -23,7 +23,7 @@ public class WorkerHelper {
     }
 
     // --- CREATE ---
-    public static Task<Void> createWorker(String name ,String image,  String placeId , String restaurant ) {
+    public static Task<Void> createWorker( String name ,String image, String placeId , String restaurant ) {
         Worker workerToCreate = new Worker(name,image, placeId ,restaurant) ;
         return WorkerHelper.getWorkersCollection().document().set(workerToCreate);
     }
@@ -37,7 +37,7 @@ public class WorkerHelper {
     // --- UPDATE ---
 
     public static Task<Void> updateWorkerName(String username, String uid) {
-        return WorkerHelper.getWorkersCollection().document(uid).update("workerName", username);
+        return WorkerHelper.getWorkersCollection().document(uid).update("nameWorker", username);
     }
 
     // --- DELETE ---

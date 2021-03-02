@@ -4,7 +4,7 @@ public class Worker {
 
     // FIELDS
 
-private String workerName;
+private String nameWorker;
 private String imageWorker;
 private String placeId;
 private String restaurantChoose;
@@ -14,8 +14,8 @@ private String emailWorker;
     public Worker() {
     }
 
-    public Worker(String workerName, String imageWorker, String placeId, String restaurantChoose) {
-        this.workerName = workerName;
+    public Worker(String nameWorker, String imageWorker, String placeId, String restaurantChoose) {
+        this.nameWorker = nameWorker;
         this.imageWorker = imageWorker;
         this.placeId = placeId;
         this.restaurantChoose = restaurantChoose;
@@ -24,7 +24,7 @@ private String emailWorker;
 /////////////////////GETTERS//////////////////
 
     public String getNameWorker() {
-        return workerName;
+        return nameWorker;
     }
 
     public  String getImageWorker() { return imageWorker; }
@@ -44,7 +44,7 @@ private String emailWorker;
 
 
     public void setName(String name) {
-        this.workerName = name;
+        this.nameWorker = name;
     }
 
     public void setImageWorker(String imageWorker) {

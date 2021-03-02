@@ -173,7 +173,6 @@ public class AuthenticationActivity extends BaseActivity {
         }
     }
 
-
     /**
      * Http request that create user in fireStore
      */

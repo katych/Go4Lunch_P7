@@ -19,11 +19,23 @@ import android.widget.Toast;
 import com.example.go4lunch.R;
 import com.example.go4lunch.base.BaseActivity;
 import com.example.go4lunch.views.fragment.MapsFragment;
+import com.example.go4lunch.views.fragment.WorkmatesList;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,6 +52,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
     private Fragment mFragment;
+    private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
+    private String key;
+
+
 
 
 
@@ -58,6 +74,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        this.key = getResources().getString(R.string.google_maps_key);
 
         if (mFragment == null) {
             mFragment = new MapsFragment();
@@ -68,6 +85,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         configureDrawerLayout();
         configureNavigationView();
         configureBottomNavigation();
+
+        // Initialize the SDK for autocomplete
+        Places.initialize(getApplicationContext(),key);
     }
 
     /**
@@ -133,8 +153,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     break;
 
                 case R.id.workmates:
-                    Toast.makeText(this, "workmates ", Toast.LENGTH_SHORT).show();
-                  break;
+                    this.mFragment = new WorkmatesList();
+                    configureFragment(mFragment);
+                    toolbar.setTitle(getString(R.string.workers_toolbar));
+                    break;
             }
             // Closes the DrawerNavigationView when the user click on an item
             if (this.drawerLayout.isDrawerOpen(START)) {
@@ -190,5 +212,52 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, fragment)
                 .commit();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // fragment open first after permission granted
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.map_fragment);
+        Objects.requireNonNull(fragment).onActivityResult(requestCode, resultCode, data);
+
+        //  go to detail page when we click on result search
+        if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = Autocomplete.getPlaceFromIntent(data);
+                Intent intent = new Intent(this, RestaurantDetails.class);
+                intent.putExtra("placeId", place.getId());
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_query), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.search_toolbar) {
+            // Set the fields to specify which types of place data to
+            // return after the user has made a selection.
+            List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS);
+            // Define the region
+            RectangularBounds bounds = RectangularBounds.newInstance(
+                    new LatLng(47.2184, -1.5536),
+                    new LatLng(47.2205, -1.5435));
+
+            // Start the autocomplete intent.
+            Intent intent = new Autocomplete.IntentBuilder(
+                    AutocompleteActivityMode.OVERLAY, fields)
+                    .setLocationBias(bounds)
+                    .setTypeFilter(TypeFilter.ESTABLISHMENT)
+                    .build(MainActivity.this);
+
+            startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

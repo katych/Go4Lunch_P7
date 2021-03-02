@@ -16,22 +16,8 @@ public class Restaurant {
     private boolean choice;
 
 
-    /**
-     * Empty constructor for Firebase
-     * @param location
-     * @param name
-     * @param vicinity
-     * @param placeId
-     * @param openNow
-     * @param photo
-     * @param distance
-     * @param workers
-     * @param rating
-
-     */
-    public Restaurant(android.location.Location location, String name, String vicinity, String placeId, Boolean openNow, String photo, int distance, int workers, double rating)
-    {
-
+    //Empty constructor for Firebase
+    public Restaurant() {
     }
 
     //constructor

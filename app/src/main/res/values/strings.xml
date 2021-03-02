@@ -26,7 +26,7 @@
     <!-- Toolbar-->
     <string name="text_toolbar">Go4Lunch</string>
     <string name="I_m_hungry">I\'m hungry</string>
-    <string name="workers_toolbar">Workers</string>
+    <string name="workers_toolbar">Available workmates</string>
 
 
     <!-- MAIN ACTIVITY POP UP MESSAGE-->
@@ -51,6 +51,15 @@
     <string name="permission_denied">Permission denied</string>
     <string name="my_position">My position</string>
     <string name="title_activity_settings">Settings</string>
+
+    <!-- workers choice -->
+    <string name="no_choice_restaurant_workers">You don\'t have chosen a restaurant</string>
+    <string name="is_eating_at">" is eating at \n"</string>
+    <string name="hasn_t_decided">" hasn\'t decided yet"</string>
+    <string name="is_joining">" is joining!"</string>
+
+    <!-- Firebase query -->
+    <string name="error_query">Error getting documents : %s</string>
 
 
 </resources>
