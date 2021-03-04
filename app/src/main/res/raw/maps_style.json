@@ -9,7 +9,7 @@
     ]
   },
   {
-    "featureType": "poi",
+    "featureType": "position",
     "elementType": "labels.icon",
     "stylers": [
       {
@@ -18,7 +18,7 @@
     ]
   },
   {
-    "featureType": "poi",
+    "featureType": "position",
     "elementType": "labels.text",
     "stylers": [
       {
