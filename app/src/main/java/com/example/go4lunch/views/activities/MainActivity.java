@@ -11,13 +11,20 @@ import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.go4lunch.R;
+import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
+import com.example.go4lunch.views.fragment.ListRestaurant;
 import com.example.go4lunch.views.fragment.MapsFragment;
 import com.example.go4lunch.views.fragment.WorkmatesList;
 import com.google.android.gms.maps.MapFragment;
@@ -32,10 +39,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,6 +62,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @BindView(R.id.bottomNavigation)
     BottomNavigationView bottomNavigationView;
     private Fragment mFragment;
+    private FirebaseUser user;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
     private String key;
 
@@ -75,7 +86,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         this.key = getResources().getString(R.string.google_maps_key);
-
+        user = this.getCurrentUser();
         if (mFragment == null) {
             mFragment = new MapsFragment();
         }
@@ -85,6 +96,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         configureDrawerLayout();
         configureNavigationView();
         configureBottomNavigation();
+
 
         // Initialize the SDK for autocomplete
         Places.initialize(getApplicationContext(),key);
@@ -114,6 +126,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      */
     public void configureNavigationView() {
         navigationView.setNavigationItemSelectedListener(this);
+        this.updateNavigationHeader();
     }
 
     @Override
@@ -148,14 +161,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     break;
 
                 case R.id.listView:
-                    Toast.makeText(this, "listView ", Toast.LENGTH_SHORT).show();
-
+                    this.mFragment = new ListRestaurant();
+                    configureFragment(mFragment);
+                    toolbar.setTitle(getResources().getString(R.string.I_m_hungry));
                     break;
 
                 case R.id.workmates:
                     this.mFragment = new WorkmatesList();
                     configureFragment(mFragment);
-                    toolbar.setTitle(getString(R.string.workers_toolbar));
+                    toolbar.setTitle(getResources().getString(R.string.workers_toolbar));
                     break;
             }
             // Closes the DrawerNavigationView when the user click on an item
@@ -258,5 +272,58 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Update header with user information
+     */
+    private void updateNavigationHeader() {
+        final View headerNav = navigationView.getHeaderView(0);
+
+        //XML id for update data
+        ImageView imageViewNav = headerNav.findViewById(R.id.imageProfileHeader);
+        TextView textViewNavName = headerNav.findViewById(R.id.nameProfileHeader);
+        TextView textViewNavMail = headerNav.findViewById(R.id.emailProfileHeader);
+
+        if (user != null) {
+            // ImageView: User image
+            if (user.getPhotoUrl() != null) {
+                Glide.with(this)
+                        .load(user.getPhotoUrl())
+                        .circleCrop()
+                        .into(imageViewNav);
+            }
+
+            // TextView: Username and email
+            final String username = TextUtils.isEmpty(user.getDisplayName()) ? getString(R.string.no_name_found) :
+                    user.getDisplayName();
+
+            final String email = TextUtils.isEmpty(user.getEmail()) ? getString(R.string.no_mail_found) :
+                    user.getEmail();
+
+            textViewNavName.setText(username);
+            textViewNavMail.setText(email);
+        }
+    }
+    /**
+     * get a user query to show if the user has chosen a restaurant and redirect if able
+     */
+    private void showMyRestaurantChoice() {
+        Query query = WorkerHelper.getAllWorkers().whereEqualTo("workerName",
+                Objects.requireNonNull(getCurrentUser()).getDisplayName());
+        query.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                    if (!Objects.equals(document.get("placeId"), "")) {
+                        Intent intent = new Intent(this.getBaseContext(), RestaurantDetails.class);
+                        intent.putExtra("placeId", Objects.requireNonNull(document.get("placeId")).toString());
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_choice_restaurant_workers), Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }
+        });
     }
 }

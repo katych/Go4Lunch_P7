@@ -10,9 +10,11 @@ public class RestaurantsResult {
     @SerializedName("html_attributions")
     @Expose
     private List<Object> htmlAttributions = null;
+
     @SerializedName("results")
     @Expose
     private List<Result> results = null;
+
     @SerializedName("status")
     @Expose
     private String status;

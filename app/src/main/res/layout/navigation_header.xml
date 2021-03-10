@@ -23,7 +23,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imageProfileDrawer"
+            android:id="@+id/imageProfileHeader"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_marginStart="16dp"
@@ -32,23 +32,23 @@
             android:layout_marginRight="16dp"
             android:contentDescription="@null"
            android:src="@drawable/ic_identity"
-            app:layout_constraintBottom_toBottomOf="@+id/nameProfileDrawer"
-            app:layout_constraintEnd_toStartOf="@+id/emailProfileDrawer"
+            app:layout_constraintBottom_toBottomOf="@+id/nameProfileHeader"
+            app:layout_constraintEnd_toStartOf="@+id/emailProfileHeader"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameProfileDrawer" />
+            app:layout_constraintTop_toBottomOf="@+id/nameProfileHeader" />
 
         <TextView
-            android:id="@+id/nameProfileDrawer"
+            android:id="@+id/nameProfileHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="7dp"
             android:text="Name"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/emailProfileDrawer"
-            app:layout_constraintStart_toStartOf="@+id/emailProfileDrawer" />
+            app:layout_constraintBottom_toTopOf="@+id/emailProfileHeader"
+            app:layout_constraintStart_toStartOf="@+id/emailProfileHeader" />
 
         <TextView
-            android:id="@+id/emailProfileDrawer"
+            android:id="@+id/emailProfileHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="147dp"
@@ -58,7 +58,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageProfileDrawer" />
+            app:layout_constraintStart_toEndOf="@+id/imageProfileHeader" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

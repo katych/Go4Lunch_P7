@@ -4,7 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -15,9 +18,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import com.example.go4lunch.R;
+import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.model.Position;
+import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.viewModel.ViewModel;
+import com.example.go4lunch.views.activities.RestaurantDetails;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -30,6 +36,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -38,20 +46,26 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
-    private GoogleMapOptions mapOptions;
     private FusedLocationProviderClient mFusedLocationClient;
     private LatLng lastPosition;
     private GoogleMap mGoogleMap;
-    private ArrayList<Worker> mWorkersArrayList;
+    private ViewModel viewModel;
+    private GoogleMapOptions mapOptions;
+
     private ListenerRegistration mListenerRegistration = null;
+    private ArrayList<Worker> mWorkersArrayList;
+
     private static final float DEFAULT_ZOOM = 15;
     private static final String PREF_ZOOM = "zoom_key";
-    private static final String TAG = "MAP FRAGMENT " ;
-
+    private static final String PREF_RADIUS = "radius_key";
+    private static final String PREF_TYPE = "type_key";
 
 
 
@@ -81,7 +95,24 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         this.mGoogleMap = googleMap;
         mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(this.getContext()), R.raw.maps_style));
         Timber.i("Map ready");
+
+        final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
+        mListenerRegistration = workersRef.addSnapshotListener((queryDocumentSnapshots, e) -> {
+            mWorkersArrayList = new ArrayList<>();
+            if (queryDocumentSnapshots != null) {
+                for (DocumentSnapshot data : Objects.requireNonNull(queryDocumentSnapshots).getDocuments()) {
+
+                    if (data.get("placeId") != null) {
+                        Worker workers = data.toObject(Worker.class);
+                        mWorkersArrayList.add(workers);
+                        Timber.i("snap workers : %s", mWorkersArrayList.size());
+                    }
+                }
+            }
+        });
         getLocationPermission();
+        viewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity())).get(ViewModel.class);
+
     }
 
     @Override
@@ -180,6 +211,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         mGoogleMap.setMyLocationEnabled(true);
         //observe ViewModel restaurants data
+        ViewModel.getAllRestaurants(latLng,
+                sharedPreferences.getString(PREF_RADIUS, ""),
+                sharedPreferences.getString(PREF_TYPE, ""))
+                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);
     }
 
 
@@ -203,10 +238,52 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     /**
      * create user marker
      */
-    private void createUserMarker(Position position, GoogleMap map) {
+   private void createUserMarker(Position position, GoogleMap map) {
         setMarkerPosition(position, map, R.drawable.ic_marquer);
     }
+    /**
+     * create marker for all restaurant
+     *
+     * @param poi poi
+     * @param map map
+     */
+    private void createRestaurantsMarker(Position poi, GoogleMap map) {
+        if (poi.isChosen()) {
+            setMarkerPosition(poi, map, R.drawable.ic_place_green);
+        } else {
+            setMarkerPosition(poi, map, R.drawable.ic_place_red);
+        }
+    }
 
+    /**
+     * generate marker with restaurant list
+     *
+     * @param restaurants list
+     */
+     private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
+        List<Position> listPoi = viewModel.generatePositions(restaurants, mWorkersArrayList);
+        for (Position p : listPoi) {
+            createRestaurantsMarker(p, mGoogleMap);
+            mGoogleMap.setOnMarkerClickListener(marker -> {
+                launchRestaurantDetail(marker);
+                return true;
+            });
+        }
+    }
+
+    /**
+     * launch detail restaurant page on marker click
+     *
+     * @param marker position of a restaurant
+     */
+    private void launchRestaurantDetail(Marker marker) {
+        String ref = (String) marker.getTag();
+        String name = marker.getTitle();
+        Intent intent = new Intent(getContext(), RestaurantDetails.class);
+        intent.putExtra("placeId", ref);
+        intent.putExtra("restaurantName", name);
+        startActivity(intent);
+    }
     //init map
     private void initMap() {
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map_fragment);

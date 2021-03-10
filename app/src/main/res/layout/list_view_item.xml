@@ -21,7 +21,7 @@
     android:layout_margin="@dimen/margin_5">
 
     <TextView
-        android:id="@+id/list_item_Name_Restaurant"
+        android:id="@+id/list_item_name_restaurant"
         style="@style/item_text_style"
         android:text="Le Zinc"
         android:maxLength="30" />
@@ -67,7 +67,7 @@
         android:layout_gravity="center">
 
         <TextView
-            android:id="@+id/list_item_rating"
+            android:id="@+id/worker_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="(0)"

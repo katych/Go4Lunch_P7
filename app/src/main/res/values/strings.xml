@@ -61,5 +61,21 @@
     <!-- Firebase query -->
     <string name="error_query">Error getting documents : %s</string>
 
+    <!-- restaurant list -->
+    <string name="restaurant_image">restaurant Image</string>
+    <string name="restaurant_open">Restaurant open</string>
+    <string name="not_open_yet">Not open yet</string>
+
+    <!-- Stream -->
+    <string name="error_stream">error : %s</string>
+    <string name="on_Complete_message">On complete</string>
+
+    <string name="star_1">1 star</string>
+    <string name="star_2">2 stars</string>
+    <string name="star_3">3 stars</string>
+    <string name="no_star">No star</string>
+    <string name="no_filter">No filter</string>
+    <string name="no_restaurant_for_this_filter_selection">No restaurant for this filter selection</string>
+
 
 </resources>

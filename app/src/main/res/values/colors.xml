@@ -11,4 +11,5 @@
     <color name="secondary_text">#424242</color>
     <color name="color_workers">#BEBDBD</color>
     <color name="background">#D3D1D1</color>
+    <color name="white_text">#FFF</color>
 </resources>

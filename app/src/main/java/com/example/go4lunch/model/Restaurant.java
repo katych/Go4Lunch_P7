@@ -1,32 +1,35 @@
 package com.example.go4lunch.model;
 
 
+import com.example.go4lunch.pojos.Location;
+
 public class Restaurant {
 
     private String nameRestaurant;
+    private Location mLocation;
     private String placeId;
     private String address;
     private String website;
     private String phoneNumber;
     private String image;
-    private Boolean openNow;
+    private Boolean hour;
     private double rating;
     private int workers;
     private int distanceCurrentWorker;
     private boolean choice;
-
 
     //Empty constructor for Firebase
     public Restaurant() {
     }
 
     //constructor
-    public Restaurant( String name, String address, String placeId, boolean openNow, String urlImage,
+    public Restaurant(Location location, String name, String address, String placeId, boolean hour, String urlImage,
             int distance, int workers, double rating) {
+        this.mLocation = location;
         this.nameRestaurant = name;
         this.placeId = placeId;
         this.address = address;
-        this.openNow = openNow;
+        this.hour = hour;
         this.image = urlImage;
         this.distanceCurrentWorker = distance;
         this.workers = workers;
@@ -51,6 +54,10 @@ public class Restaurant {
         return nameRestaurant;
     }
 
+    public Location getLocation() {
+        return mLocation;
+    }
+
     public String getPlaceId() {
         return placeId;
     }
@@ -71,8 +78,8 @@ public class Restaurant {
         return image;
     }
 
-    public Boolean getOpenNow() {
-        return openNow;
+    public Boolean getHour() {
+        return hour;
     }
 
     public double getRating() {
@@ -97,6 +104,10 @@ public class Restaurant {
 
     public void setNameRestaurant(String nameRestaurant) {
         this.nameRestaurant = nameRestaurant;
+    }
+
+    public void setLocation(Location mLocation) {
+        this.mLocation = mLocation;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -131,8 +142,8 @@ public class Restaurant {
         this.website = website;
     }
 
-    public void setOpenNow(Boolean openNow) {
-        this.openNow = openNow;
+    public void setHour(Boolean openNow) {
+        this.hour = openNow;
     }
 
 
