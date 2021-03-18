@@ -12,7 +12,7 @@ public abstract class Utils {
 
 
     /**
-     * Create an arraylist of restaurant with the json result
+     * Create an arrayList of restaurant with the json result
      *
      * @param restaurantsResult json result
      * @return arrayList of restaurant

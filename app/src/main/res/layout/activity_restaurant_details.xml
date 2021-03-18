@@ -31,12 +31,11 @@
                     android:layout_height="230dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/ic_restaurant_details"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbarDetails"
@@ -44,27 +43,11 @@
                     android:layout_height="0dp"
                     android:layout_marginBottom="135dp"
                     android:background="@android:color/transparent"
-                    app:layout_constraintBottom_toTopOf="@+id/floatingActionButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
-
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:src="@drawable/ic_check_circle_black"
-                    app:backgroundTint="#fff"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/imageRestaurant"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbarDetails"
-                    app:maxImageSize="@dimen/image_fab_30" />
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -73,14 +56,12 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="229dp"
+            android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Le Zink"
-                    android:textSize="20sp"
+                    style="@style/detail_text_style"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -101,11 +82,11 @@
                     android:id="@+id/linearLayout6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="98dp"
-                    android:layout_marginLeft="98dp"
+                    android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintStart_toEndOf="@+id/nameRestaurant"
+                    app:layout_constraintTop_toTopOf="@+id/nameRestaurant"
+                    >
 
                     <ImageView
                         android:id="@+id/star1"
@@ -113,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="44dp"
                         android:layout_marginLeft="44dp"
-                        android:src="@drawable/ic_star"
+                        app:srcCompat="@drawable/ic_star"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/NameOfRestaurant"
                         app:layout_constraintTop_toTopOf="parent"
@@ -123,7 +104,7 @@
                         android:id="@+id/star2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_star"
+                        app:srcCompat="@drawable/ic_star"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/star1"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -132,7 +113,7 @@
                         android:id="@+id/star3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_star"
+                        app:srcCompat="@drawable/ic_star"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/star2"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -143,11 +124,11 @@
 
             <TextView
                 android:id="@+id/restaurantAddress"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
-                android:text="French restaurant-12 Rue du Faubourg Poissoniére "
-                android:textSize="14sp" />
+                tools:text="12 Rue du Faubourg Poissoniére "
+                style="@style/text_address_style"
+                />
 
 
         </LinearLayout>
@@ -157,21 +138,23 @@
             android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_margin="@dimen/margin_5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/linearLayout">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
 
             <LinearLayout
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
-                android:layout_marginLeft="36dp"
+                android:layout_margin="@dimen/margin_start_10"
+                android:gravity="center"
                 android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/linearLayout3"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
@@ -179,9 +162,10 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_call"
-                    tools:layout_editor_absoluteX="76dp"
-                    tools:layout_editor_absoluteY="1dp" />
+                    app:srcCompat="@drawable/ic_call"
+                    android:clickable="true"
+                    android:focusable="true"
+                    />
 
                 <TextView
                     android:id="@+id/textCall"
@@ -189,8 +173,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/call"
-                    tools:layout_editor_absoluteX="88dp"
-                    tools:layout_editor_absoluteY="32dp" />
+                    />
 
             </LinearLayout>
 
@@ -198,20 +181,21 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="160dp"
-                android:layout_marginLeft="160dp"
                 android:orientation="vertical"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0">
+                app:layout_constraintLeft_toRightOf="@+id/linearLayout2"
+                app:layout_constraintRight_toLeftOf="@+id/linearLayout4"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
                     android:id="@+id/like"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                   android:src="@drawable/ic_star_detail" />
+                   app:srcCompat="@drawable/ic_star_detail"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <TextView
                     android:id="@+id/textLike"
@@ -219,8 +203,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/like"
-                    tools:layout_editor_absoluteX="118dp"
-                    tools:layout_editor_absoluteY="51dp" />
+                   />
 
 
             </LinearLayout>
@@ -229,10 +212,11 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="43dp"
-                android:layout_marginRight="43dp"
                 android:orientation="vertical"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:gravity="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/linearLayout3"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageButton
@@ -240,7 +224,9 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/ic_public" />
+                    app:srcCompat="@drawable/ic_public"
+                    android:clickable="true"
+                    android:focusable="true"/>
 
                 <TextView
                     style="@style/text_style_button_detail"
@@ -285,5 +271,18 @@
                 tools:listitem="@layout/workers_item" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_fab_16"
+        android:clickable="true"
+        android:focusable="true"
+        app:srcCompat="@drawable/ic_check_circle_black"
+        app:backgroundTint="#fff"
+        app:layout_anchor="@id/appBarLayout"
+        app:layout_anchorGravity="bottom|end"
+        app:maxImageSize="@dimen/image_fab_30" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

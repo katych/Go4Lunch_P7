@@ -73,8 +73,6 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         // Required empty public constructor
     }
 
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -269,8 +267,6 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
 
         }
     }
-
-
 }
 
 

@@ -2,9 +2,12 @@ package com.example.go4lunch.apiRestaurantPlaces;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.model.DetailRestaurant;
 import com.example.go4lunch.model.Restaurant;
+import com.example.go4lunch.pojos.Detail;
+import com.example.go4lunch.pojos.DetailsResult;
 import com.example.go4lunch.pojos.RestaurantsResult;
 import com.example.go4lunch.utils.Utils;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,7 +27,6 @@ public class RepositoryRestaurantList implements NearbyPlaces {
     private MutableLiveData<ArrayList<Restaurant>> mRestaurantList;
     private MutableLiveData<DetailRestaurant> mDetailRestaurantLiveData;
     private Disposable disposable;
-    public static final String mapKey= "AIzaSyCj9D_m5ZrbeSO_PipkQv7K8k5DdqUhuTk";
 
     //Implementation interface method
     @Override
@@ -34,7 +36,7 @@ public class RepositoryRestaurantList implements NearbyPlaces {
         parameters.put("location", latLng.latitude + "," + latLng.longitude);
         parameters.put("radius", radius);
         parameters.put("type", type);
-        parameters.put("key", mapKey);
+        parameters.put("key", BuildConfig.google_maps_key);
 
         this.disposable = PlaceStream.streamGetNearByRestaurant(parameters)
                 .subscribeWith(new DisposableObserver<RestaurantsResult>() {
@@ -61,7 +63,51 @@ public class RepositoryRestaurantList implements NearbyPlaces {
 
     @Override
     public MutableLiveData<DetailRestaurant> configureDetailRestaurant(String placeId) {
-        return null;
+        mDetailRestaurantLiveData = new MutableLiveData<>();
+        Map<String, String> parameters = new HashMap<>();
+
+        parameters.put("place_id", placeId);
+        parameters.put("key", BuildConfig.google_maps_key);
+
+        this.disposable = PlaceStream.streamGetDetailRestaurant(parameters)
+                .subscribeWith(new DisposableObserver<Detail>() {
+                    @Override
+                    public void onNext(Detail detail) {
+                        if (detail != null) {
+                            DetailsResult detailsResult = detail.getResult();
+                            if (detailsResult != null) {
+                                String photo;
+                                if (detailsResult.getPhotos() == null) {
+                                    photo = "";
+                                } else {
+                                    photo = detailsResult.getPhotos().get(0).getPhotoReference();
+                                }
+
+                                DetailRestaurant restaurant = new DetailRestaurant(
+                                        detailsResult.getFormattedAddress(),
+                                        detailsResult.getFormattedPhoneNumber(),
+                                        detailsResult.getName(),
+                                        photo,
+                                        (detailsResult.getRating() != null) ? detailsResult.getRating() : 0,
+                                        detailsResult.getWebsite()
+                                );
+                                mDetailRestaurantLiveData.setValue(restaurant);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Timber.e(String.valueOf(R.string.error_stream), e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Timber.i(String.valueOf(R.string.on_Complete_message));
+                    }
+                });
+
+        return mDetailRestaurantLiveData;
     }
 
 

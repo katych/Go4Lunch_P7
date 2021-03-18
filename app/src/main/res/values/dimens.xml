@@ -20,6 +20,14 @@
     <dimen name="image_button_20">20dp</dimen>
     <dimen name="text_size_18">18sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
+    <dimen name="margin_top_15">15dp</dimen>
+    <dimen name="text_size_20">20sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="padding_16">16dp</dimen>
+    <dimen name="text_size_40">40sp</dimen>
+    <dimen name="margin_25">25dp</dimen>
+
+
 
 
 </resources>

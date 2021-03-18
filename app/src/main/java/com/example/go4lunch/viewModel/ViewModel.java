@@ -78,7 +78,7 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
      * @return MutableLiveData
      */
     public MutableLiveData<DetailRestaurant> getDetailRestaurant(String placeId) {
-        return this.mRepositoryRestaurantList.configureDetailRestaurant(placeId);
+        return mRepositoryRestaurantList.configureDetailRestaurant(placeId);
     }
 
 

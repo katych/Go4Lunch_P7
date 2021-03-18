@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
@@ -18,9 +19,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.base.BaseActivity;
 import com.example.go4lunch.model.DetailRestaurant;
@@ -28,15 +29,11 @@ import com.example.go4lunch.utils.Utils;
 import com.example.go4lunch.viewModel.ViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.ListenerRegistration;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
-import java.util.ArrayList;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
+
 
 public class RestaurantDetails extends BaseActivity {
 
@@ -72,13 +69,13 @@ public class RestaurantDetails extends BaseActivity {
     FloatingActionButton mFloatingActionButton;
     @BindView(R.id.recyclerView_workers_restaurant_detail)
     RecyclerView mRecyclerView;
+    private ListenerRegistration mListenerRegistration = null;
     private static final int PERMISSION_CALL = 100;
-    private String nameRestaurant;
+    private  String nameRestaurant;
     private String phoneNumber;
     private String websiteUrl;
     private String placeId;
-    private String nameResto;
-    private Query query;
+
 
 
     @Override
@@ -114,82 +111,84 @@ public class RestaurantDetails extends BaseActivity {
 
     }
 
-
-
-        /**
-         * update UI with restaurant detail information
-         *
-         * @param detailRestaurant restaurant detail information
-         */
-        private void updateUi(DetailRestaurant detailRestaurant) {
-            //listen change on worker list
-           // listenChangeWorkersList();
-            //path for photo url
-            photoReferencePath(detailRestaurant.getPhotoReference());
-            //set name and address
-            setNameRestaurant(detailRestaurant.getName());
-            mRestaurantAddress.setText(detailRestaurant.getFormatted_address());
-            //stars method according to rating
-            Utils.starsView(Utils.starsAccordingToRating(detailRestaurant.getRating()), mRestaurantStar1, mRestaurantStar2, mRestaurantStar3);
-            // Call restaurant if possible
-            callPhone.setOnClickListener(v -> setCallPhoneIfPossible(detailRestaurant.getFormatted_phone_number()));
-
-            // go to website if there is one
-            websiteButton.setOnClickListener(view -> {
-                if (detailRestaurant.getWebsite() == null) {
-                    Toast.makeText(this, R.string.no_website_for_restaurant, Toast.LENGTH_SHORT).show();
-                } else {
-                    websiteUrl = detailRestaurant.getWebsite();
-                    callWebsiteUrl();
-                }
-            });
-
-          /*  mRestaurantFavoris = new RestaurantFavoris("", detailRestaurant.getName(), placeId, detailRestaurant.getFormatted_address(),
-                    detailRestaurant.getPhotoReference(), detailRestaurant.getRating());
-            //configure click on like star
-            if (mRestaurantFavorises != null) {
-                for (RestaurantFavoris restaurantFavoris : mRestaurantFavorises) {
-                    if (restaurantFavoris.getPlaceId().equalsIgnoreCase(placeId)) {
-                        isLiked = true;
-                        updateButtonLike();
-                    }
-                }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == PERMISSION_CALL) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                callPhone();
             }
-            fabButtonColor();*/
         }
+    }
 
-        /**
-         * get photo path if able and show it in glide
-         *
-         * @param photoText photo path
-         */
-        private void photoReferencePath(String photoText) {
-            String path;
-            if (photoText == null) {
-                path = "https://www.chilhoweerv.com/storage/app/public/blog/noimage930.png";
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mListenerRegistration != null) {
+            mListenerRegistration.remove();
+        }
+    }
+
+    /**
+     * update UI with restaurant detail information
+     *
+     * @param detailRestaurant restaurant detail information
+     */
+    private void updateUi(DetailRestaurant detailRestaurant) {
+        //listen change on worker list
+        //path for photo url
+        photoPath(detailRestaurant.getPhotoReference());
+        //set name and address
+        setNameRestaurant(detailRestaurant.getName());
+        mRestaurantAddress.setText(detailRestaurant.getFormatted_address());
+        //stars method according to rating
+        Utils.starsView(Utils.starsAccordingToRating(detailRestaurant.getRating()), mRestaurantStar1, mRestaurantStar2, mRestaurantStar3);
+        // Call restaurant if possible
+        callPhone.setOnClickListener(v -> setCallPhoneIfPossible(detailRestaurant.getFormatted_phone_number()));
+
+        // go to website if there is one
+        websiteButton.setOnClickListener(view -> {
+            if (detailRestaurant.getWebsite() == null) {
+                Toast.makeText(this, R.string.no_website_for_restaurant, Toast.LENGTH_SHORT).show();
             } else {
-                path = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
-                        + photoText +
-                        "&key=" +" AIzaSyCj9D_m5ZrbeSO_PipkQv7K8k5DdqUhuTk";
+                websiteUrl = detailRestaurant.getWebsite();
+                callWebsiteUrl();
             }
+        });
 
-            Glide.with(this)
-                    .load(path)
-                    .apply(RequestOptions.centerCropTransform())
-                    .into(mImageRestaurant);
+    }
+
+    /**
+     * get photo path if able and show it in glide
+     *
+     * @param photoText photo path
+     */
+    private void photoPath(String photoText) {
+        String path;
+        if (photoText == null) {
+            path = "https://www.chilhoweerv.com/storage/app/public/blog/noimage930.png";
+        } else {
+            path = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
+                    + photoText +
+                    "&key=" + BuildConfig.google_maps_key;
         }
+
+        Glide.with(this)
+                .load(path)
+                .apply(RequestOptions.centerCropTransform())
+                .into(mImageRestaurant);
+    }
 
     /**
      * Format text restaurant name if it's too long
      *
-     * @param restoText text of restaurant name
+     * @param restaurantText text of restaurant name
      */
-    private void setNameRestaurant(String restoText) {
+    private void setNameRestaurant(String restaurantText) {
         String name;
-        if (restoText.length() > 23) {
-            name = restoText.substring(0, 23) + " ...";
+        if (restaurantText.length() > 23) {
+            name = restaurantText.substring(0, 23) + " ...";
         } else {
-            name = restoText;
+            name = restaurantText;
         }
         mRestaurantName.setText(name);
     }
@@ -216,6 +215,7 @@ public class RestaurantDetails extends BaseActivity {
             callPhone();
         }
     }
+
     /**
      * intent to call
      */
@@ -224,6 +224,7 @@ public class RestaurantDetails extends BaseActivity {
         Intent intentCall = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
         startActivity(intentCall);
     }
+
     /**
      * intent to go to website
      */
@@ -232,7 +233,8 @@ public class RestaurantDetails extends BaseActivity {
         startActivity(intentWebsite);
     }
 
-    }
+}
+
 
 
 

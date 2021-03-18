@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.utils.Utils;
@@ -81,7 +82,7 @@ public class RestaurantItemViewHolder extends RecyclerView.ViewHolder implements
         } else {
             String path = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
                     + restaurantDetail.getImage() +
-                    "&key=" + "AIzaSyCj9D_m5ZrbeSO_PipkQv7K8k5DdqUhuTk";
+                    "&key=" + BuildConfig.google_maps_key;
 
             glide.load(path)
                     .error(R.drawable.ic_restaurant_image)

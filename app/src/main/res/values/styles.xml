@@ -55,12 +55,7 @@
     </style>
 
 
-<!-- RESTAURANT DETAILS -->
-    <style name="text_style_button_detail">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">@dimen/text_size_16</item>
-        <item name="android:textStyle">bold</item>
-    </style>
+
 
     <!-- workers item list  -->
     <style name="worker_image">
@@ -106,6 +101,27 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <!-- RESTAURANT DETAILS -->
+    <style name="text_style_button_detail">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <!-- detail page style -->
+    <style name="detail_text_style">
+        <item name="android:layout_marginStart">@dimen/margin_start_10</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_15</item>
+        <item name="android:textColor">@color/quantum_white_100</item>
+        <item name="android:textSize">@dimen/text_size_20</item>
+    </style>
+
+    <style name="text_address_style">
+        <item name="android:textColor">@color/white_text</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+        <item name="android:layout_margin">@dimen/margin_start_10</item>
+        <item name="android:layout_marginTop">@dimen/margin_top_15</item>
+    </style>
+
     <!-- List filter style -->
     <style name="list_filter">
         <item name="android:layout_margin">@dimen/margin_start_10</item>
@@ -114,6 +130,18 @@
         <item name="android:textSize">16sp</item>
         <item name="android:focusable">true</item>
         <item name="android:clickable">true</item>
+    </style>
+
+
+    <!-- drawer style -->
+    <style name="header_navigation">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/text_size_40</item>
+        <item name="android:layout_marginBottom">@dimen/margin_25</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
     </style>
 
 
