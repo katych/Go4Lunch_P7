@@ -19,7 +19,7 @@ public class Restaurant {
     private boolean choice;
 
     //Empty constructor for Firebase
-    public Restaurant() {
+    public Restaurant(String worker, String name, String image, String placeId, String address, double rating) {
     }
 
     //constructor

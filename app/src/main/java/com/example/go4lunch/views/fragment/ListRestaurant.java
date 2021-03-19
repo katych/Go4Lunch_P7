@@ -1,7 +1,8 @@
 package com.example.go4lunch.views.fragment;
-
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -9,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -90,11 +92,11 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         ButterKnife.bind(this, view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         mRecyclerView.setHasFixedSize(true);
-        initRestaurantList();
         return view;
 
     }
-    @OnClick({R.id.no_star,
+
+   /* @OnClick({R.id.no_star,
             R.id.star1,
             R.id.star3,
             R.id.star2,
@@ -123,16 +125,16 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
                 setButtonChoiceChange(R.id.no_filter);
                 break;
         }
-        if (mRestaurantsToDisplay.isEmpty()){
+        if (mRestaurantsToDisplay.isEmpty()) {
             no_restaurant.setVisibility(View.VISIBLE);
             mRecyclerView.setVisibility(View.GONE);
-        }else{
+        } else {
             Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
             no_restaurant.setVisibility(View.GONE);
             mRecyclerView.setVisibility(View.VISIBLE);
         }
     }
-
+*/
     @Override
     public void onStart() {
         super.onStart();
@@ -165,6 +167,9 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         });
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(this.getContext()));
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(Objects.requireNonNull(getActivity()), location -> {
                     if (location != null) {
@@ -172,7 +177,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
                         currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
                         //observe restaurants data
                         viewModel.getAllRestaurants(currentPosition,
-                                sharedPreferences.getString(PREF_RADIUS, "1500"),
+                                sharedPreferences.getString(PREF_RADIUS, "2500"),
                                 sharedPreferences.getString(PREF_TYPE, "restaurant"))
                                 .observe(Objects.requireNonNull(this.getActivity()), this::initListAdapter);
 
@@ -192,7 +197,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
 
     }
 
-    /**
+  /*  /**
      * format restaurant list with distance and workers information choice
      *
      * @param restaurants list
@@ -203,6 +208,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         getDistanceFromMyPosition(mRestaurantsList);
         return mRestaurantsList;
     }
+
 
     @Override
     public void onClickRestaurantItem(int position) {
@@ -227,7 +233,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         }
     }
 
-    private void setButtonChoiceChange(int textView){
+  /*  private void setButtonChoiceChange(int textView){
         switch (textView){
             case R.id.no_star:
                 no_star.setTextColor(getResources().getColor(R.color.colorAccent));
@@ -266,7 +272,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
                 break;
 
         }
-    }
+    }*/
 }
 
 

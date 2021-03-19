@@ -42,7 +42,7 @@ public class RepositoryRestaurantList implements NearbyPlaces {
                 .subscribeWith(new DisposableObserver<RestaurantsResult>() {
                     @Override
                     public void onNext(RestaurantsResult restaurantsResult) {
-                        if (restaurantsResult != null) {
+                        if (restaurantsResult != null ) {
                             mRestaurantList.setValue(Utils.restaurantResultToRestaurant(restaurantsResult));
                         }
                     }
@@ -60,6 +60,7 @@ public class RepositoryRestaurantList implements NearbyPlaces {
 
         return this.mRestaurantList;
     }
+
 
     @Override
     public MutableLiveData<DetailRestaurant> configureDetailRestaurant(String placeId) {

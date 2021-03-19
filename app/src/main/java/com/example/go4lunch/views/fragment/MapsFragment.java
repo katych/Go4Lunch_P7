@@ -211,10 +211,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         mGoogleMap.setMyLocationEnabled(true);
         //observe ViewModel restaurants data
-        ViewModel.getAllRestaurants(latLng,
+       /* ViewModel.getAllRestaurants(latLng,
                 sharedPreferences.getString(PREF_RADIUS, ""),
                 sharedPreferences.getString(PREF_TYPE, ""))
-                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);
+                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);*/
     }
 
 
@@ -247,20 +247,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @param poi poi
      * @param map map
      */
-    private void createRestaurantsMarker(Position poi, GoogleMap map) {
+   /* private void createRestaurantsMarker(Position poi, GoogleMap map) {
         if (poi.isChosen()) {
             setMarkerPosition(poi, map, R.drawable.ic_place_green);
         } else {
             setMarkerPosition(poi, map, R.drawable.ic_place_red);
         }
-    }
+    }*/
 
     /**
      * generate marker with restaurant list
      *
      * @param restaurants list
      */
-     private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
+    /* private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
         List<Position> listPoi = viewModel.generatePositions(restaurants, mWorkersArrayList);
         for (Position p : listPoi) {
             createRestaurantsMarker(p, mGoogleMap);
@@ -269,7 +269,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 return true;
             });
         }
-    }
+    }*/
 
     /**
      * launch detail restaurant page on marker click

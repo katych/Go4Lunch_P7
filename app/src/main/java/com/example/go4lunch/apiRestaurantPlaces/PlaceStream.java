@@ -1,5 +1,7 @@
 package com.example.go4lunch.apiRestaurantPlaces;
 
+import android.util.Log;
+
 import com.example.go4lunch.pojos.Detail;
 import com.example.go4lunch.pojos.RestaurantsResult;
 
@@ -14,9 +16,10 @@ import retrofit2.http.QueryMap;
 
 class PlaceStream {
 
-  /**
+
+    /**
      * create observable data for nearby restaurant
-     *
+     * Add the Request HTTP with Retrofit to have nearby Restaurant
      * @param parameters for search restaurants
      * @return Restaurant Result of the request
      */
@@ -26,6 +29,7 @@ class PlaceStream {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .timeout(10, TimeUnit.SECONDS);
+
     }
 
     /**
