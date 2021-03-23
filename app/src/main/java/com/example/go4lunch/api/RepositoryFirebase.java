@@ -19,7 +19,7 @@ public abstract class RepositoryFirebase {
      * @return query for Firebase recyclerView options
      */
     public static Query getQueryWorkers(List<Worker> mWorkers) {
-        Query query = WorkerHelper.getWorkersCollection().orderBy("restaurantChoose", Query.Direction.DESCENDING);
+        Query query = WorkerHelper.getWorkersCollection().orderBy("restaurantName", Query.Direction.DESCENDING);
         query.get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {

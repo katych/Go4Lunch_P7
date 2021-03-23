@@ -28,7 +28,6 @@ import com.example.go4lunch.base.BaseActivity;
 import com.example.go4lunch.views.fragment.ListRestaurant;
 import com.example.go4lunch.views.fragment.MapsFragment;
 import com.example.go4lunch.views.fragment.WorkmatesList;
-import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
@@ -46,7 +45,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-import java.util.Timer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -131,11 +129,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (id) {
             case R.id.drawer_yourLunch:
                 showMyRestaurantChoice();
-                Toast.makeText(this, "your lunch", Toast.LENGTH_LONG).show();
                 break;
             case R.id.drawer_favorite_restaurant:
                 this.showMyFavoriteRestaurant();
-                Toast.makeText(this, "favorite restaurant", Toast.LENGTH_LONG).show();
 
                 break;
             case R.id.drawer_settings:
@@ -217,7 +213,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         startActivity(intent);
     }
     private void showMyFavoriteRestaurant() {
-        Intent intent = new Intent(this, FavoritesRestaurant.class);
+        Intent intent = new Intent(this, FavoritesRestaurantList.class);
         startActivity(intent);
     }
 
@@ -313,7 +309,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      * get a user query to show if the user has chosen a restaurant and redirect if able
      */
     private void showMyRestaurantChoice() {
-        Query query = WorkerHelper.getAllWorkers().whereEqualTo("workerName",
+        Query query = WorkerHelper.getAllWorkers().whereEqualTo("nameWorker",
                 Objects.requireNonNull(getCurrentUser()).getDisplayName());
         query.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {

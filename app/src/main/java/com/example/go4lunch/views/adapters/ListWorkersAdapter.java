@@ -68,8 +68,8 @@ public class ListWorkersAdapter extends FirestoreRecyclerAdapter<Worker,ListWork
     protected void onBindViewHolder(@NonNull WorkerViewHolder workerViewHolder, int position, @NonNull Worker worker) {
         Resources resource = workerViewHolder.itemView.getContext().getResources();
         String text;
-       if (!worker.getRestaurantChoose().trim().equals("")) {
-            text = worker.getNameWorker() + " " + resource.getString(R.string.is_eating_at)+ " " + worker.getRestaurantChoose() ;
+       if (!worker.getRestaurantName().trim().equals("")) {
+            text = worker.getNameWorker() + " " + resource.getString(R.string.is_eating_at)+ " " + worker.getRestaurantName() ;
        } else {
             text = worker.getNameWorker() + " " + resource.getString(R.string.hasn_t_decided);
         }

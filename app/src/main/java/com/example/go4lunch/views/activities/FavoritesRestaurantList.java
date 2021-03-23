@@ -23,7 +23,7 @@ import butterknife.BindView;
 
 import timber.log.Timber;
 
-public class FavoritesRestaurant extends BaseActivity implements FavoritesRestaurantListAdapter.favoritesClickListener{
+public class FavoritesRestaurantList extends BaseActivity implements FavoritesRestaurantListAdapter.favoritesClickListener{
 
     //FIELDS
     private FavoritesRestaurantListAdapter adapter;

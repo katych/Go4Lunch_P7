@@ -25,7 +25,7 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
      * @return Position
      */
     public static Position generateUserPosition(double lat, double lng) {
-        return new Position("My ic_my_position",
+        return new Position("My position",
                 "",
                 lat,
                 lng

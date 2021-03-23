@@ -158,7 +158,7 @@ public class AuthenticationActivity extends BaseActivity {
                 {
                    this.startMainActivity();
                     }
-                else {
+               else {
                     this.createWorkerInFireStore();
                 }
 

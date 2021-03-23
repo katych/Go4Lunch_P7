@@ -7,18 +7,18 @@ public class Worker {
 private String nameWorker;
 private String imageWorker;
 private String placeId;
-private String restaurantChoose;
+private String restaurantName;
 private String emailWorker;
 
     // Empty constructor for Firebase
     public Worker() {
     }
 
-    public Worker(String nameWorker, String imageWorker, String placeId, String restaurantChoose) {
+    public Worker(String nameWorker, String imageWorker, String placeId, String restaurantName) {
         this.nameWorker = nameWorker;
         this.imageWorker = imageWorker;
         this.placeId = placeId;
-        this.restaurantChoose = restaurantChoose;
+        this.restaurantName = restaurantName;
 
     }
 /////////////////////GETTERS//////////////////
@@ -31,8 +31,8 @@ private String emailWorker;
 
     public String getPlaceId() { return placeId; }
 
-    public String getRestaurantChoose() {
-        return restaurantChoose;
+    public String getRestaurantName() {
+        return restaurantName;
     }
 
     public String getEmailWorker() {
@@ -55,8 +55,8 @@ private String emailWorker;
         this.placeId = placeId;
     }
 
-    public void setRestaurantChoose(String restaurantChoose) {
-        this.restaurantChoose = restaurantChoose;
+    public void setRestaurantChoose(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public void setEmailWorker(String emailWorker) {

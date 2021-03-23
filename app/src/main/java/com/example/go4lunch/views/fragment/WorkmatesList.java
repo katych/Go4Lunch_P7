@@ -91,7 +91,7 @@ public class WorkmatesList extends Fragment implements ListWorkersAdapter.OnClic
         } else {
             Intent intent = new Intent(getContext(), RestaurantDetails.class);
             intent.putExtra("placeId", workersList.get(position).getPlaceId());
-            intent.putExtra("restaurantName", workersList.get(position).getRestaurantChoose());
+            intent.putExtra("restaurantName", workersList.get(position).getRestaurantName());
             startActivity(intent);
         }
     }
