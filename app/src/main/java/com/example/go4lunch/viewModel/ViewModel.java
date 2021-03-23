@@ -18,14 +18,14 @@ public class ViewModel extends androidx.lifecycle.ViewModel {
     private static RepositoryRestaurantList mRepositoryRestaurantList = new RepositoryRestaurantList();
 
     /**
-     * generate user position
+     * generate user ic_my_position
      *
      * @param lat latitude
      * @param lng longitude
      * @return Position
      */
     public static Position generateUserPosition(double lat, double lng) {
-        return new Position("My position",
+        return new Position("My ic_my_position",
                 "",
                 lat,
                 lng

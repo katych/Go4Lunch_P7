@@ -78,7 +78,7 @@ public class RestaurantItemViewHolder extends RecyclerView.ViewHolder implements
 
         // Restaurants images
         if (restaurantDetail.getImage().isEmpty()) {
-            imageRestaurant.setImageResource(R.drawable.ic_orage_bowl);
+            imageRestaurant.setImageResource(R.drawable.ic_orange_bowl);
         } else {
             String path = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="
                     + restaurantDetail.getImage() +

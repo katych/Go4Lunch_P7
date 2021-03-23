@@ -58,7 +58,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private ViewModel viewModel;
     private GoogleMapOptions mapOptions;
-
+    private Marker marker;
+    
     private ListenerRegistration mListenerRegistration = null;
     private ArrayList<Worker> mWorkersArrayList;
 
@@ -77,6 +78,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Nullable
@@ -93,9 +95,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mGoogleMap = googleMap;
-        mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(this.getContext()), R.raw.maps_style));
         Timber.i("Map ready");
-
         final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
         mListenerRegistration = workersRef.addSnapshotListener((queryDocumentSnapshots, e) -> {
             mWorkersArrayList = new ArrayList<>();
@@ -211,10 +211,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         mGoogleMap.setMyLocationEnabled(true);
         //observe ViewModel restaurants data
-       /* ViewModel.getAllRestaurants(latLng,
+        ViewModel.getAllRestaurants(latLng,
                 sharedPreferences.getString(PREF_RADIUS, ""),
                 sharedPreferences.getString(PREF_TYPE, ""))
-                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);*/
+                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);
     }
 
 
@@ -223,6 +223,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      */
 
     private void setMarkerPosition(Position position, GoogleMap map, int icon) {
+
+        if (marker != null) {
+            marker.remove();
+        }
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(position.getLat(), position.getLong()))
                 .title(position.getTitle())
@@ -239,7 +243,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * create user marker
      */
    private void createUserMarker(Position position, GoogleMap map) {
-        setMarkerPosition(position, map, R.drawable.ic_marquer);
+        setMarkerPosition(position, map, R.drawable.ic_my_position);
     }
     /**
      * create marker for all restaurant
@@ -247,20 +251,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @param poi poi
      * @param map map
      */
-   /* private void createRestaurantsMarker(Position poi, GoogleMap map) {
+    private void createRestaurantsMarker(Position poi, GoogleMap map) {
         if (poi.isChosen()) {
             setMarkerPosition(poi, map, R.drawable.ic_place_green);
         } else {
             setMarkerPosition(poi, map, R.drawable.ic_place_red);
         }
-    }*/
+    }
 
     /**
      * generate marker with restaurant list
      *
      * @param restaurants list
      */
-    /* private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
+     private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
         List<Position> listPoi = viewModel.generatePositions(restaurants, mWorkersArrayList);
         for (Position p : listPoi) {
             createRestaurantsMarker(p, mGoogleMap);
@@ -269,7 +273,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 return true;
             });
         }
-    }*/
+    }
 
     /**
      * launch detail restaurant page on marker click
@@ -297,4 +301,5 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         mapFragment.getMapAsync(this);
     }
+
 }

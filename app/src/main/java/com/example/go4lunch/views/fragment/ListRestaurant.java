@@ -96,45 +96,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
 
     }
 
-   /* @OnClick({R.id.no_star,
-            R.id.star1,
-            R.id.star3,
-            R.id.star2,
-            R.id.no_filter})
-    void onClickFilter(View view) {
-        mRestaurantsToDisplay.clear();
-        switch (view.getId()) {
-            case R.id.no_star:
-                mRestaurantsToDisplay.addAll(Utils.filterRestaurantList(mRestaurantsList, 0));
-                setButtonChoiceChange(R.id.no_star);
-                break;
-            case R.id.star1:
-                mRestaurantsToDisplay.addAll(Utils.filterRestaurantList(mRestaurantsList, 1));
-                setButtonChoiceChange(R.id.star1);
-                break;
-            case R.id.star2:
-                mRestaurantsToDisplay.addAll(Utils.filterRestaurantList(mRestaurantsList, 2));
-                setButtonChoiceChange(R.id.star2);
-                break;
-            case R.id.star3:
-                mRestaurantsToDisplay.addAll(Utils.filterRestaurantList(mRestaurantsList, 3));
-                setButtonChoiceChange(R.id.star3);
-                break;
-            case R.id.no_filter:
-                mRestaurantsToDisplay.addAll(mRestaurantsList);
-                setButtonChoiceChange(R.id.no_filter);
-                break;
-        }
-        if (mRestaurantsToDisplay.isEmpty()) {
-            no_restaurant.setVisibility(View.VISIBLE);
-            mRecyclerView.setVisibility(View.GONE);
-        } else {
-            Objects.requireNonNull(mRecyclerView.getAdapter()).notifyDataSetChanged();
-            no_restaurant.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.VISIBLE);
-        }
-    }
-*/
+
     @Override
     public void onStart() {
         super.onStart();
@@ -150,7 +112,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
     }
 
     /**
-     * create a list of restaurant with settings and current position
+     * create a list of restaurant with settings and current ic_my_position
      */
     private void initRestaurantList() {
         workersRef.addSnapshotListener((queryDocumentSnapshots, e) -> {
@@ -197,7 +159,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
 
     }
 
-  /*  /**
+    /**
      * format restaurant list with distance and workers information choice
      *
      * @param restaurants list
@@ -219,7 +181,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
     }
 
     /**
-     * calculate distance between restaurant and current position
+     * calculate distance between restaurant and current ic_my_position
      *
      * @param restaurants list
      */
@@ -233,46 +195,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         }
     }
 
-  /*  private void setButtonChoiceChange(int textView){
-        switch (textView){
-            case R.id.no_star:
-                no_star.setTextColor(getResources().getColor(R.color.colorAccent));
-                star1.setTextColor(getResources().getColor(R.color.white_text));
-                star2.setTextColor(getResources().getColor(R.color.white_text));
-                star3.setTextColor(getResources().getColor(R.color.white_text));
-                no_filter.setTextColor(getResources().getColor(R.color.white_text));
-                break;
-            case R.id.star1:
-                star1.setTextColor(getResources().getColor(R.color.colorAccent));
-                no_star.setTextColor(getResources().getColor(R.color.white_text));
-                star2.setTextColor(getResources().getColor(R.color.white_text));
-                star3.setTextColor(getResources().getColor(R.color.white_text));
-                no_filter.setTextColor(getResources().getColor(R.color.white_text));
-                break;
-            case R.id.star2:
-                star2.setTextColor(getResources().getColor(R.color.colorAccent));
-                star1.setTextColor(getResources().getColor(R.color.white_text));
-                no_star.setTextColor(getResources().getColor(R.color.white_text));
-                star3.setTextColor(getResources().getColor(R.color.white_text));
-                no_filter.setTextColor(getResources().getColor(R.color.white_text));
-                break;
-            case R.id.star3:
-                star3.setTextColor(getResources().getColor(R.color.colorAccent));
-                star1.setTextColor(getResources().getColor(R.color.white_text));
-                star2.setTextColor(getResources().getColor(R.color.white_text));
-                no_star.setTextColor(getResources().getColor(R.color.white_text));
-                no_filter.setTextColor(getResources().getColor(R.color.white_text));
-                break;
-            case R.id.no_filter:
-                no_filter.setTextColor(getResources().getColor(R.color.colorAccent));
-                star1.setTextColor(getResources().getColor(R.color.white_text));
-                star2.setTextColor(getResources().getColor(R.color.white_text));
-                star3.setTextColor(getResources().getColor(R.color.white_text));
-                no_star.setTextColor(getResources().getColor(R.color.white_text));
-                break;
 
-        }
-    }*/
 }
 
 

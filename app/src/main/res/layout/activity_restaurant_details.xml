@@ -196,6 +196,17 @@
                     android:clickable="true"
                     android:focusable="true"/>
 
+                <ImageButton
+                    android:id="@+id/favorite_restaurant"
+                    android:layout_width="@dimen/image_button_50"
+                    android:layout_height="@dimen/image_button_50"
+                    android:background="@color/fui_transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_star_choice"
+                    tools:ignore="ContentDescription" />
+
                 <TextView
                     android:id="@+id/textLike"
                     style="@style/text_style_button_detail"

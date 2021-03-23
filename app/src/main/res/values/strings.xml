@@ -22,6 +22,10 @@
     <!-- Used in NavigationDrawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="your_lunch">YOUR LUNCH </string>
+    <string name="settings">SETTINGS</string>
+    <string name="logout">LOG OUT</string>
+    <string name="favorite_restaurants">FAVORITE RESTAURANTS</string>
 
     <!-- Toolbar-->
     <string name="text_toolbar">Go4Lunch</string>
@@ -42,6 +46,8 @@
     <string name="like">LIKE</string>
     <string name="web_site">WEB SITE</string>
     <string name="favorite_restaurant_message">Restaurant added to your favorite list</string>
+    <string name="favorite_restaurant_exist"> Restaurant already exist </string>
+
     <string name="dislike">Dislike</string>
     <string name="chosen_restaurant">You have chosen this restaurant</string>
     <string name="no_telephone_number_for_this_restaurant">No telephone number for this restaurant</string>
@@ -76,6 +82,13 @@
     <string name="no_star">No star</string>
     <string name="no_filter">No filter</string>
     <string name="no_restaurant_for_this_filter_selection">No restaurant for this filter selection</string>
+
+
+    <!-- restaurant favorite activity -->
+    <string name="favorites_restaurant">My Favorites Restaurants</string>
+    <string name="your_favorite_restaurants">Your favorite restaurants</string>
+    <string name="restaurant_delete">Restaurant delete to your favorite list</string>
+    <string name="you_haven_t_choice_restaurant">You haven\'t choose restaurant</string>
 
 
 </resources>

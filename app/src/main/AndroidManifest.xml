@@ -3,8 +3,7 @@
     package="com.example.go4lunch">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- permission call -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- permission call -->
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
@@ -19,16 +18,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".views.activities.MainActivity">
-        </activity>
+        <activity android:name=".views.activities.MainActivity"></activity>
         <activity android:name=".views.activities.AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.RestaurantDetails">
-        </activity>
+        <activity android:name=".views.activities.RestaurantDetails"></activity>
+
+        <activity android:name=".views.activities.FavoritesRestaurant"></activity>
     </application>
 
 </manifest>

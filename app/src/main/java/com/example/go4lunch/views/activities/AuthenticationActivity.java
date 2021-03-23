@@ -154,9 +154,11 @@ public class AuthenticationActivity extends BaseActivity {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) { // SUCCESS
                 showSnackBar(this.coordinatorLayout, getString(R.string.connection_succeed));
-                if(this.getCurrentUser()!=null) {
+                if(this.getCurrentUser()!=null)
+                {
                    this.startMainActivity();
-                    }else {
+                    }
+                else {
                     this.createWorkerInFireStore();
                 }
 
@@ -185,6 +187,7 @@ public class AuthenticationActivity extends BaseActivity {
             WorkerHelper.createWorker(username, urlPicture, restaurant, placeId ).addOnFailureListener(this.onFailureListener());
         }
     }
+
 
     /**
      * Start MainActivity after login

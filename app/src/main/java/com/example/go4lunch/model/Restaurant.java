@@ -5,6 +5,7 @@ import com.example.go4lunch.pojos.Location;
 
 public class Restaurant {
 
+    private String uid;
     private String nameRestaurant;
     private Location mLocation;
     private String placeId;
@@ -18,13 +19,10 @@ public class Restaurant {
     private int distanceCurrentWorker;
     private boolean choice;
 
-    //Empty constructor for Firebase
-    public Restaurant(String worker, String name, String image, String placeId, String address, double rating) {
-    }
 
     //constructor
     public Restaurant(Location location, String name, String address, String placeId, boolean hour, String urlImage,
-            int distance, int workers, double rating) {
+            int distance, int workers, double rating ) {
         this.mLocation = location;
         this.nameRestaurant = name;
         this.placeId = placeId;
@@ -37,18 +35,28 @@ public class Restaurant {
         this.choice = false;
     }
 
+    public Restaurant() {
+    }
+
     /**
      * Constructor to create a Restaurant in Firebase
      */
-    public Restaurant(String placeId, int workers, String name, String address)
+    public Restaurant(String uid,String name,String placeId, String address,String image,double rating  )
     {
+        this.uid=uid;
         this.placeId = placeId;
-        this.workers = workers;
         this.nameRestaurant = name;
         this.address = address;
+        this.image = image;
+        this.rating= rating;
+        this.choice=false;
     }
 
     /////////////////////getters/////////////
+
+    public String getUid() {
+        return uid;
+    }
 
     public String getNameRestaurant() {
         return nameRestaurant;
@@ -102,6 +110,11 @@ public class Restaurant {
 
     //////////////////////SETTERS//////////////////////
 
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     public void setNameRestaurant(String nameRestaurant) {
         this.nameRestaurant = nameRestaurant;
     }
@@ -154,4 +167,7 @@ public class Restaurant {
     public void setDistanceCurrentWorker(int distanceCurrentWorker) {
         this.distanceCurrentWorker = distanceCurrentWorker;
     }
+
+
+
 }

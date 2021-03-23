@@ -45,7 +45,6 @@
         <item name="android:background">@drawable/button_facebook</item>
         <item name="android:drawableStart">@drawable/ic_facebook</item>
         <item name="android:text">@string/facebook_login</item>
-
     </style>
     <!-- EMAIL BUTTON -->
     <style name="emailButtonStyle" parent="ButtonStyle">
@@ -53,7 +52,6 @@
     <item name="android:drawableStart">@drawable/ic_email</item>
     <item name="android:text">@string/email_login</item>
     </style>
-
 
 
 

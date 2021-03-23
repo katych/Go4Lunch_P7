@@ -5,12 +5,17 @@ import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.pojos.RestaurantsResult;
 import com.example.go4lunch.pojos.Result;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Utils {
 
-
+    //Show Snack Bar with a message
+    public static void showSnackBar(View view, String message) {
+        Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show();
+    }
     /**
      * Create an arrayList of restaurant with the json result
      *

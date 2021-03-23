@@ -16,7 +16,7 @@
         android:layout_width="@dimen/width_logo_image"
         android:layout_height="@dimen/height_logo_image"
         android:layout_marginTop="@dimen/margin_top_logo_image"
-        android:src="@drawable/ic_logo_go4lunch"
+        app:srcCompat="@drawable/ic_logo_go4lunch"
         app:layout_constraintBottom_toTopOf="@+id/textViewLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -55,7 +55,7 @@ public class WorkerHelper {
     public static void updateRestaurantChoice(String uid, String restaurantName, String placeId) {
         Map<String, Object> data = new HashMap<>();
         data.put("placeId", placeId);
-        data.put("restaurantName", restaurantName);
+        data.put("restaurantChoose", restaurantName);
         WorkerHelper.getWorkersCollection().document(uid).update(data);
     }
 }

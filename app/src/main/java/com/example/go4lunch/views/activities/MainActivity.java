@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
@@ -64,11 +65,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Fragment mFragment;
     private FirebaseUser user;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
-    private String key;
-
-
-
-
 
     @Override
     public int getActivityLayout() {
@@ -85,11 +81,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        this.key = getResources().getString(R.string.google_maps_key);
+
         user = this.getCurrentUser();
         if (mFragment == null) {
             mFragment = new MapsFragment();
         }
+        user = this.getCurrentUser();
         configureFragment(mFragment);
         this.configureToolBar(getString(R.string.I_m_hungry));
 
@@ -97,9 +94,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         configureNavigationView();
         configureBottomNavigation();
 
-
         // Initialize the SDK for autocomplete
-        Places.initialize(getApplicationContext(),key);
+        Places.initialize(getApplicationContext(), BuildConfig.google_maps_key);
     }
 
     /**
@@ -132,11 +128,15 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-
         switch (id) {
             case R.id.drawer_yourLunch:
-                Intent intent = new Intent(this, RestaurantDetails.class);
-                startActivity(intent);
+                showMyRestaurantChoice();
+                Toast.makeText(this, "your lunch", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.drawer_favorite_restaurant:
+                this.showMyFavoriteRestaurant();
+                Toast.makeText(this, "favorite restaurant", Toast.LENGTH_LONG).show();
+
                 break;
             case R.id.drawer_settings:
                 Toast.makeText(this, "settings", Toast.LENGTH_LONG).show();
@@ -144,6 +144,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case R.id.drawer_logOut:
                 createAndShowPopUpLogOut();
                 break;
+
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -215,7 +216,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent(this, AuthenticationActivity.class);
         startActivity(intent);
     }
-
+    private void showMyFavoriteRestaurant() {
+        Intent intent = new Intent(this, FavoritesRestaurant.class);
+        startActivity(intent);
+    }
 
     /**
      * create new fragment
@@ -326,4 +330,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
     }
+
 }

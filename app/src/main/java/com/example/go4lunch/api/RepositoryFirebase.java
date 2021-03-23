@@ -1,6 +1,7 @@
 package com.example.go4lunch.api;
 
 import com.example.go4lunch.R;
+import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -34,7 +35,27 @@ public abstract class RepositoryFirebase {
         return query;
     }
 
-
-
+    /**
+     * create a query for favorite restaurant BDD
+     *
+     * @param favorites list of restaurant
+     * @param user      user logged
+     * @return query for firebase RV
+     */
+    public static Query getQueryFavoritesRestaurant(List<Restaurant> favorites, String user) {
+        Query query = FavoriteRestaurantHelper.getAllRestaurantsFromWorkers(user);
+        query.get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                            Restaurant restaurantFavorite = document.toObject(Restaurant.class);
+                            favorites.add(restaurantFavorite);
+                        }
+                    } else {
+                        Timber.w(String.valueOf(R.string.error_query), Objects.requireNonNull(task.getException()).getMessage());
+                    }
+                });
+        return query;
+    }
 
 }

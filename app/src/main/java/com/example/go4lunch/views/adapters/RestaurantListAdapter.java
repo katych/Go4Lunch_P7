@@ -21,7 +21,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantItemVi
         void onClickRestaurantItem(int position);
     }
 
-    //FILEDS
+    //FILED
     private ArrayList<Restaurant> mRestaurantList;
     private RequestManager glide;
     private onClickRestaurantItemListener mOnClickRestaurantItemListener;
