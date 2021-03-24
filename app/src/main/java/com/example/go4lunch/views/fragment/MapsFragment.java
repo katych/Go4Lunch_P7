@@ -212,8 +212,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         mGoogleMap.setMyLocationEnabled(true);
         //observe ViewModel restaurants data
         ViewModel.getAllRestaurants(latLng,
-                sharedPreferences.getString(PREF_RADIUS, ""),
-                sharedPreferences.getString(PREF_TYPE, ""))
+                sharedPreferences.getString(PREF_RADIUS, "2500"),
+                sharedPreferences.getString(PREF_TYPE, "restaurant"))
                 .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);
     }
 
@@ -248,14 +248,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     /**
      * create marker for all restaurant
      *
-     * @param poi poi
+     * @param position poi
      * @param map map
      */
-    private void createRestaurantsMarker(Position poi, GoogleMap map) {
-        if (poi.isChosen()) {
-            setMarkerPosition(poi, map, R.drawable.ic_place_green);
+    private void createRestaurantsMarker(Position position, GoogleMap map) {
+        if (position.isChosen()) {
+            setMarkerPosition(position, map, R.drawable.ic_resto_green2);
         } else {
-            setMarkerPosition(poi, map, R.drawable.ic_place_red);
+            setMarkerPosition(position, map, R.drawable.ic_resto_red2);
         }
     }
 

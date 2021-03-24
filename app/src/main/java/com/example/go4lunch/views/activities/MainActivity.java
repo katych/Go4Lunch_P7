@@ -25,6 +25,7 @@ import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
+import com.example.go4lunch.settings.SettingsActivity;
 import com.example.go4lunch.views.fragment.ListRestaurant;
 import com.example.go4lunch.views.fragment.MapsFragment;
 import com.example.go4lunch.views.fragment.WorkmatesList;
@@ -63,6 +64,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Fragment mFragment;
     private FirebaseUser user;
     private static final int AUTOCOMPLETE_REQUEST_CODE = 1;
+
 
     @Override
     public int getActivityLayout() {
@@ -135,11 +137,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
                 break;
             case R.id.drawer_settings:
+                this.startActivitySettings();
                 Toast.makeText(this, "settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.drawer_logOut:
                 createAndShowPopUpLogOut();
                 break;
+
 
         }
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -216,6 +220,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent(this, FavoritesRestaurantList.class);
         startActivity(intent);
     }
+    private void startActivitySettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * create new fragment
@@ -257,9 +265,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS);
             // Define the region
             RectangularBounds bounds = RectangularBounds.newInstance(
-                    new LatLng(47.2184, -1.5536),
-                    new LatLng(47.2205, -1.5435));
-
+                    new LatLng(50.6477, 3.0913),
+                    new LatLng(50.6577, 3.0813));
+            
             // Start the autocomplete intent.
             Intent intent = new Autocomplete.IntentBuilder(
                     AutocompleteActivityMode.OVERLAY, fields)
@@ -270,9 +278,11 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             startActivityForResult(intent, AUTOCOMPLETE_REQUEST_CODE);
 
             return true;
+
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     /**
      * Update header with user information

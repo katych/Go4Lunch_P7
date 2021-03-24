@@ -121,8 +121,13 @@ public class RestaurantDetails extends BaseActivity {
         this.configureToolBar("");
 
         if (mToolbar != null) {
-            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+           Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onBackPressed();
+                }
+            });
         }
         //get placeId and name extra intent
         placeId = getIntent().getStringExtra("placeId");
