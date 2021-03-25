@@ -1,6 +1,9 @@
 package com.example.go4lunch.utils;
 import android.view.View;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
+
 import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.pojos.RestaurantsResult;
@@ -8,6 +11,7 @@ import com.example.go4lunch.pojos.Result;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class Utils {
@@ -132,25 +136,40 @@ public abstract class Utils {
         }
     }
 
+
     /**
-     * filter restaurant with rating stars
-     *
-     * @param restaurants list
-     * @param filter      filter
-     * @return arrayList of restaurant filtered
+     * Sort the restaurants according to their rating
      */
-    public static ArrayList<Restaurant> filterRestaurantList(ArrayList<Restaurant> restaurants, int filter) {
-        ArrayList<Restaurant> restaurantArrayList = new ArrayList<>();
-        for (Restaurant restaurant : restaurants) {
-            int rating = Utils.starsAccordingToRating(restaurant.getRating());
-            if (rating == filter) {
-                restaurantArrayList.add(restaurant);
-            }
-        }
-        return restaurantArrayList;
+    public static void sortRatingReverse(List<Restaurant> restaurantList)
+    {
+        Collections.sort(restaurantList, (o1, o2) -> {
+            Double o1Rating = o1.getRating();
+            Double o2Rating = o2.getRating();
+            return o1Rating.compareTo(o2Rating);
+        });
+        Collections.reverse(restaurantList);
+    }
+    /**
+     * Sort the restaurants according to their name
+     */
+    public static void sortName(List<Restaurant> restaurantList)
+    {
+        Collections.sort(restaurantList, (o1, o2) -> {
+            String o1Name = o1.getNameRestaurant();
+            String o2Name = o2.getNameRestaurant();
+            return o1Name.compareToIgnoreCase(o2Name);
+        });
     }
 
-
-
-
+    /**
+     * Sort the restaurants according to their distance from the CurrentUser
+     */
+    public static void sortProximity(List<Restaurant> restaurantList)
+    {
+        Collections.sort(restaurantList, (o1, o2) -> {
+            Integer o1DistanceCurrentUser = o1.getDistanceCurrentWorker();
+            Integer o2DistanceCurrentUser = o2.getDistanceCurrentWorker();
+            return o1DistanceCurrentUser.compareTo(o2DistanceCurrentUser);
+        });
+    }
 }

@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ import butterknife.ButterKnife;
 import static androidx.core.view.GravityCompat.START;
 
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
+    private static final String TAG = "Main Activity" ;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.navigation_drawer_layout)
@@ -171,6 +173,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     this.mFragment = new WorkmatesList();
                     configureFragment(mFragment);
                     toolbar.setTitle(getResources().getString(R.string.workers_toolbar));
+
                     break;
             }
             // Closes the DrawerNavigationView when the user click on an item
@@ -248,6 +251,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
+                Log.i(TAG, "placeId: " + place.getName() + ", " + place.getId());
                 Intent intent = new Intent(this, RestaurantDetails.class);
                 intent.putExtra("placeId", place.getId());
                 startActivity(intent);
@@ -262,15 +266,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         if (item.getItemId() == R.id.search_toolbar) {
             // Set the fields to specify which types of place data to
             // return after the user has made a selection.
-            List<Place.Field> fields = Arrays.asList(Place.Field.ADDRESS);
+            List<Place.Field> fields = Arrays.asList(Place.Field.ID, Place.Field.NAME,
+                    Place.Field.LAT_LNG, Place.Field.RATING, Place.Field.ADDRESS,
+                    Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS);
             // Define the region
             RectangularBounds bounds = RectangularBounds.newInstance(
-                    new LatLng(50.6477, 3.0913),
-                    new LatLng(50.6577, 3.0813));
+                    new LatLng(50.6990, 3.0831),
+                    new LatLng(50.7182, 3.0865));
             
             // Start the autocomplete intent.
-            Intent intent = new Autocomplete.IntentBuilder(
-                    AutocompleteActivityMode.OVERLAY, fields)
+            Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
                     .setLocationBias(bounds)
                     .setTypeFilter(TypeFilter.ESTABLISHMENT)
                     .build(MainActivity.this);

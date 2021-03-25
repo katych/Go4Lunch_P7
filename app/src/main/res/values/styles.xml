@@ -46,6 +46,7 @@
         <item name="android:drawableStart">@drawable/ic_facebook</item>
         <item name="android:text">@string/facebook_login</item>
     </style>
+
     <!-- EMAIL BUTTON -->
     <style name="emailButtonStyle" parent="ButtonStyle">
     <item name="android:background">@drawable/button_email</item>
@@ -53,7 +54,12 @@
     <item name="android:text">@string/email_login</item>
     </style>
 
-
+    <!-- TWITTER BUTTON -->
+    <style name="twitterButtonStyle" parent="ButtonStyle">
+        <item name="android:background">@drawable/button_twitter</item>
+        <item name="android:drawableStart">@drawable/ic_twitter</item>
+        <item name="android:text">@string/twitter_login</item>
+    </style>
 
     <!-- workers item list  -->
     <style name="worker_image">

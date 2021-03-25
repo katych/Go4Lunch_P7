@@ -58,8 +58,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mGoogleMap;
     private ViewModel viewModel;
     private GoogleMapOptions mapOptions;
-    private Marker marker;
-    
+
     private ListenerRegistration mListenerRegistration = null;
     private ArrayList<Worker> mWorkersArrayList;
 
@@ -78,6 +77,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mapOptions = new GoogleMapOptions()
+                .mapType(GoogleMap.MAP_TYPE_NORMAL)
+                .zoomControlsEnabled(true)
+                .zoomGesturesEnabled(true);
 
     }
 
@@ -95,6 +98,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mGoogleMap = googleMap;
+        mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(this.getContext()), R.raw.maps_style));
         Timber.i("Map ready");
         final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
         mListenerRegistration = workersRef.addSnapshotListener((queryDocumentSnapshots, e) -> {
@@ -224,9 +228,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private void setMarkerPosition(Position position, GoogleMap map, int icon) {
 
-        if (marker != null) {
-            marker.remove();
-        }
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(position.getLat(), position.getLong()))
                 .title(position.getTitle())
@@ -265,8 +266,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * @param restaurants list
      */
      private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
-        List<Position> listPoi = viewModel.generatePositions(restaurants, mWorkersArrayList);
-        for (Position p : listPoi) {
+        List<Position> listPosition = viewModel.generatePositions(restaurants, mWorkersArrayList);
+        for (Position p : listPosition) {
             createRestaurantsMarker(p, mGoogleMap);
             mGoogleMap.setOnMarkerClickListener(marker -> {
                 launchRestaurantDetail(marker);

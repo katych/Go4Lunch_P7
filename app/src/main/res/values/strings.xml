@@ -4,12 +4,20 @@
     <string name="facebook_application_id">720875585239902</string>
     <string name="fb_login_protocol_scheme">fb720875585239902</string>
 
+
+    <!-- TWITTER PURPOSE -->
+    <string name="twitter_consumer_key" translatable="false">9kdRnIH71HKutGOf05rPle6Mh</string>
+    <string name="twitter_consumer_secret" translatable="false">fQiWxA8xwFDKW1dhnpvVfI4tLoWgZSTZytlz1MAFf1M4uMsmrX</string>
+
+
     <!-- AUTHENTICATION ACTIVITY-->
     <string name="text_logo">Go4Lunch</string>
     <string name="text_logo_subtitle">Find a nice restaurant and invite your co-workers for lunch</string>
     <string name="google_login"> Sign with google </string>
     <string name="facebook_login"> Sign with facebook </string>
     <string name="email_login"> Sign with email </string>
+    <string name="twitter_login"> Sign with twitter </string>
+
 
     <string name="connection_succeed">Authentication granted !</string>
     <string name="error_authentication_canceled">Authentication canceled</string>
@@ -47,6 +55,7 @@
     <string name="web_site">WEB SITE</string>
     <string name="favorite_restaurant_message">Restaurant added to your favorite list</string>
     <string name="favorite_restaurant_exist"> Restaurant already exist </string>
+    <string name="No_one_chose_this_restaurant">No one chose this restaurant</string>
 
     <string name="dislike">Dislike</string>
     <string name="chosen_restaurant">You have chosen this restaurant</string>
@@ -69,19 +78,14 @@
 
     <!-- restaurant list -->
     <string name="restaurant_image">restaurant Image</string>
-    <string name="restaurant_open">Restaurant open</string>
-    <string name="not_open_yet">Not open yet</string>
+    <string name="restaurant_open"> Open</string>
+    <string name="not_open_yet">Close now</string>
 
     <!-- Stream -->
     <string name="error_stream">error : %s</string>
     <string name="on_Complete_message">On complete</string>
 
-    <string name="star_1">1 star</string>
-    <string name="star_2">2 stars</string>
-    <string name="star_3">3 stars</string>
-    <string name="no_star">No star</string>
-    <string name="no_filter">No filter</string>
-    <string name="no_restaurant_for_this_filter_selection">No restaurant for this filter selection</string>
+
 
 
     <!-- restaurant favorite activity -->
@@ -90,5 +94,9 @@
     <string name="restaurant_delete">Restaurant delete to your favorite list</string>
     <string name="you_haven_t_choice_restaurant">You haven\'t choose restaurant</string>
 
-
+    <!--Fab labele -->
+    <string name="text1">Filter by :</string>
+    <string name="Distance">Distance</string>
+    <string name="Note">Note</string>
+    <string name="Name">Name</string>
 </resources>

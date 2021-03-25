@@ -264,16 +264,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="No one chose this restaurant"
-                android:textSize="16sp"
+                android:text="@string/No_one_chose_this_restaurant"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/margin_start_10"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-
-            <androidx.recyclerview.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_workers_restaurant_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

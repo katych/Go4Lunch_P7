@@ -68,8 +68,12 @@ android {
         //Firebase store
         implementation 'com.google.firebase:firebase-firestore:22.1.1'
         implementation 'com.firebaseui:firebase-ui-firestore:5.0.0'
+
         //Facebook
         implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
+
+        //Twitter
+        implementation 'com.twitter.sdk.android:twitter-core:3.3.0'
 
         // GOOGLE MAPS
         implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -104,6 +108,9 @@ android {
         implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
         implementation 'com.squareup.retrofit2:adapter-rxjava2:2.8.1'
 
+        // CLANS FAB
+        implementation 'com.github.clans:fab:1.6.2'
+        implementation 'com.getbase:floatingactionbutton:1.10.1'
     }
 }
 

@@ -8,6 +8,7 @@
     android:background="@drawable/ic_restaurant_image"
     android:id="@+id/constraintLayout_auth"
     tools:context=".views.activities.AuthenticationActivity"
+    android:scrollbars="horizontal"
    >
 
 
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_button"
         android:layout_marginEnd="@dimen/margin_button"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="@dimen/image_fab_30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.46"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,5 +80,15 @@
         android:layout_marginStart="@dimen/margin_button"
         android:layout_marginEnd="@dimen/margin_button"/>
 
+    <Button
+        android:id="@+id/twitterLoginButton"
+        style="@style/twitterButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="26dp"
+        app:layout_constraintStart_toStartOf="@+id/emailLoginButton"
+        app:layout_constraintTop_toBottomOf="@+id/emailLoginButton"
+        android:layout_marginStart="@dimen/margin_button"
+        android:layout_marginEnd="@dimen/margin_button"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 

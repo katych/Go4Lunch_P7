@@ -8,7 +8,7 @@
     <dimen name="auth_activity_padding_button">10dp</dimen>
     <dimen name="width_logo_image">250dp</dimen>
     <dimen name="height_logo_image">180dp</dimen>
-    <dimen name="margin_top_logo_image">48dp</dimen>
+    <dimen name="margin_top_logo_image">40dp</dimen>
     <dimen name="margin_button">32dp</dimen>
     <dimen name="image_fab_30">30dp</dimen>
     <dimen name="text_size_16">16sp</dimen>

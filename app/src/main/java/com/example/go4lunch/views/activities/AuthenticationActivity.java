@@ -43,6 +43,8 @@ public class AuthenticationActivity extends BaseActivity {
     Button facebookLoginButton;
     @BindView(R.id.emailLoginButton)
     Button emailLoginButton;
+    @BindView(R.id.twitterLoginButton)
+    Button twitterLoginButton;
     //FOR DESIGN
     // 1 - Get Coordinator Layout
     @BindView(R.id.constraintLayout_auth)
@@ -72,7 +74,8 @@ public class AuthenticationActivity extends BaseActivity {
 
     @OnClick({R.id.googleLoginButton,
             R.id.facebookLoginButton,
-            R.id.emailLoginButton,})
+            R.id.emailLoginButton,
+            R.id.twitterLoginButton,})
     public void onClickLoginButton(View view) {
         switch (view.getId()) {
             case R.id.googleLoginButton:
@@ -83,6 +86,9 @@ public class AuthenticationActivity extends BaseActivity {
                 break;
             case R.id.emailLoginButton:
                 this.startSignInWithEmail();
+                break;
+            case R.id.twitterLoginButton:
+                this.startSignInActivityTwitter();
                 break;
         }
     }
@@ -134,7 +140,19 @@ public class AuthenticationActivity extends BaseActivity {
                         .build(),RC_SIGN_IN);
     }
 
-
+    /**
+     * Sign in With Twitter
+     */
+    private void startSignInActivityTwitter() {
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(
+                                Collections.singletonList(new AuthUI.IdpConfig.TwitterBuilder().build()))
+                        .setIsSmartLockEnabled(false, true)
+                        .build(),
+                RC_SIGN_IN);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -157,7 +175,7 @@ public class AuthenticationActivity extends BaseActivity {
                 if(this.getCurrentUser()!=null)
                 {
                    this.startMainActivity();
-                    }
+                  }
                else {
                     this.createWorkerInFireStore();
                 }

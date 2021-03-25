@@ -68,7 +68,16 @@ public class RestaurantItemViewHolder extends RecyclerView.ViewHolder implements
         }
 
         this.nameRestaurant.setText(name);
-        this.addressRestaurant.setText(restaurantDetail.getAddress());
+
+        String restaurant;
+        if (restaurantDetail.getAddress().length() > 35) {
+            restaurant = restaurantDetail.getAddress().substring(0, 35) + " ...";
+        } else {
+            restaurant = restaurantDetail.getAddress();
+        }
+
+        this.addressRestaurant.setText(restaurant);
+
 
         if ((restaurantDetail.getHour())) {
             this.openingTime.setText(R.string.restaurant_open);

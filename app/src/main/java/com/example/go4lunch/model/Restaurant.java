@@ -3,7 +3,9 @@ package com.example.go4lunch.model;
 
 import com.example.go4lunch.pojos.Location;
 
-public class Restaurant {
+import java.util.Comparator;
+
+public class Restaurant  {
 
     private String uid;
     private String nameRestaurant;
@@ -167,7 +169,4 @@ public class Restaurant {
     public void setDistanceCurrentWorker(int distanceCurrentWorker) {
         this.distanceCurrentWorker = distanceCurrentWorker;
     }
-
-
-
 }

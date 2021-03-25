@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -38,23 +37,12 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 
+
 public class ListRestaurant extends Fragment implements RestaurantListAdapter.onClickRestaurantItemListener {
 
     //FOR DESIGN
     @BindView(R.id.recyclerView_list_restaurant)
     RecyclerView mRecyclerView;
-    @BindView(R.id.star1)
-    TextView star1;
-    @BindView(R.id.star2)
-    TextView star2;
-    @BindView(R.id.star3)
-    TextView star3;
-    @BindView(R.id.no_star)
-    TextView no_star;
-    @BindView(R.id.no_filter)
-    TextView no_filter;
-    @BindView(R.id.no_restaurant_text)
-    TextView no_restaurant;
 
     //FOR DATA
     private ViewModel viewModel;
@@ -64,11 +52,14 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
     private ListenerRegistration mListenerRegistration = null;
     private ArrayList<Restaurant> mRestaurantsToDisplay = new ArrayList<>();
     private LatLng currentPosition;
+    private RestaurantListAdapter adapter;
+
 
 
     //constant
     private static final String PREF_RADIUS = "radius_key";
     private static final String PREF_TYPE = "type_key";
+    private static final String TAG = "LIST RESTAURANT";
     private final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
 
     public ListRestaurant() {
@@ -154,9 +145,8 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
      */
     private void initListAdapter(ArrayList<Restaurant> restaurants) {
         mRestaurantsToDisplay.addAll(getRestaurantFromJson(restaurants));
-        RestaurantListAdapter adapter = new RestaurantListAdapter(mRestaurantsToDisplay, Glide.with(this), this);
+        adapter = new RestaurantListAdapter(mRestaurantsToDisplay, Glide.with(this), this);
         mRecyclerView.setAdapter(adapter);
-
     }
 
     /**
@@ -195,6 +185,28 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
         }
     }
 
+    ////////////////////////////////////////// ON CLICK  ///////////////////////////////////////////
+
+    @OnClick(R.id.fragment_list_restaurants_near_me_fab)
+    void triProximity() {
+        Utils.sortProximity(mRestaurantsToDisplay);
+        this.adapter.notifyDataSetChanged();
+
+    }
+
+    @OnClick(R.id.fragment_list_restaurants_rating_fab)
+    void triRate() {
+        Utils.sortRatingReverse(mRestaurantsToDisplay);
+        this.adapter.notifyDataSetChanged();
+    }
+
+
+    @OnClick(R.id.fragment_list_restaurants_name_fab)
+    void triName() {
+        Utils.sortName(mRestaurantsToDisplay);
+        this.adapter.notifyDataSetChanged();
+
+    }
 
 }
 
