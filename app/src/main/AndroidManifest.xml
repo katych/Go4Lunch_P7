@@ -18,7 +18,9 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".views.activities.MainActivity"></activity>
+        <activity android:name=".views.activities.MainActivity">
+
+        </activity>
         <activity android:name=".views.activities.AuthenticationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +28,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".views.activities.RestaurantDetails"></activity>
+        <activity android:name=".views.activities.RestaurantDetails">
 
-        <activity android:name=".views.activities.FavoritesRestaurantList"></activity>
-        <activity android:name=".settings.SettingsActivity"></activity>
+        </activity>
+
+        <activity android:name=".views.activities.FavoritesRestaurantList">
+
+        </activity>
+
+        <!-- NOTIFICATION SERVICE -->
+        <service
+            android:name=".notifications.NotificationsServices"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <!-- AUTHENTICATION ACTIVITY-->
+    <string name="text_logo">Go4Lunch</string>
+    <string name="text_logo_subtitle">Trouvez un restaurant sympa pour déjeuner avec vos collègues !</string>
+    <string name="google_login"> Sign with google </string>
+    <string name="facebook_login"> Sign with facebook </string>
+    <string name="email_login"> Sign with email </string>
+    <string name="twitter_login"> Sign with twitter </string>
+
+
+    <string name="I_m_hungry">J\'ai faim</string>
+    <string name="call">Téléphone</string>
+    <string name="chosen_restaurant">Vous avez choisi ce restaurant</string>
+    <string name="connection_succeed">Authentification réussie !</string>
+    <string name="error_authentication_canceled">Authentification annulée !</string>
+    <string name="error_no_internet">Pas de connection internet !</string>
+    <string name="error_query">Problême d\'acquisition de documents</string>
+    <string name="error_stream">erreur</string>
+    <string name="error_unknown_error">une erreur est apparue</string>
+    <string name="favorite_restaurant_message">Restaurant ajouté à votre liste de restaurant</string>
+    <string name="favorites_restaurant">Mes restaurants favoris</string>
+    <string name="like">Ajouter aux favoris</string>
+    <string name="logout">Déconnection</string>
+    <string name="my_position">Ma position</string>
+    <string name="navigation_drawer_close">Fermer la fenêtre de navigation</string>
+    <string name="navigation_drawer_open">Ouvrir la fenêtre de navigation</string>
+    <string name="no_choice_restaurant_workers">Vous n\'avez pas choisi de restaurant</string>
+    <string name="no_mail_found">Pas de mail trouvé</string>
+    <string name="no_name_found">Nom incorrect</string>
+    <string name="no_telephone_number_for_this_restaurant">Pas de téléphone renseigné pour ce restaurant.</string>
+    <string name="no_website_for_restaurant">Pas de site internet pour ce restaurant.</string>
+    <string name="not_open_yet">Pas encore ouvert</string>
+    <string name="on_Complete_message">Traitement complet</string>
+    <string name="permission_denied">Permission refusée</string>
+    <string name="restaurant_image">Image du restaurant</string>
+    <string name="restaurant_open">Restaurant ouvert</string>
+    <string name="settings">Paramètres</string>
+    <string name="web_site">Site internet</string>
+    <string name="workers_toolbar">Collègues</string>
+    <string name="your_lunch">Votre choix de restaurant</string>
+    <string name="messages_header">Notifications</string>
+    <string name="title_activity_settings">Paramètres</string>
+    <string name="enable_notification">Autoriser les notifications</string>
+    <string name="location">Géolocalisation</string>
+    <string name="choose_options">Choisissez vos options :</string>
+    <string name="hasn_t_decided">\n n\'a pas encore décidé.</string>
+    <string name="is_eating_at">" mange à \n"</string>
+    <string name="is_joining">" se joint à vous!"</string>
+    <string name="favorite_restaurants">FAVORITE RESTAURANTS</string>
+    <string name="text_toolbar">Go4Lunch</string>
+    <string name="notification_header">Notifications</string>
+    <string name="set_notification_rules">Définissez vos paramètres de notifications</string>
+    <string name="your_favorite_restaurants">Vos restaurants favoris</string>
+    <string name="dislike">Retirer des favoris</string>
+    <string name="restaurant_delete">Restaurant supprimé de votre liste de favoris</string>
+    <string name="notification_title">Vous avez reçu une notification</string>
+    <string name="you_haven_t_choice_restaurant">Vous n\'avez pas choisis de restaurant</string>
+    <string name="message_from_go4lunch">Message de Go4lunch</string>
+    <string name="filter_restaurant_by">Filtrer les restaurants :</string>
+    <string name="no_worker_has_chosen_this_restaurant">Personne n\'a choisi ce restaurant</string>
+
+    <!-- MAIN ACTIVITY POP UP MESSAGE-->
+    <string name="main_activity_success_log_out">Log out with success</string>
+    <string name="main_activity_pop_up_log_out_title">LOG OUT</string>
+    <string name="main_activity_pop_up_log_out_message">Are you sure that you want to log out ?</string>
+    <string name="main_activity_pop_up_yes">YES</string>
+    <string name="main_activity_pop_up_no">NO</string>
+    <string name="Distance">Distance</string>
+    <string name="Note">Note</string>
+    <string name="Name">Name</string>
+    <string name="language">Langue </string>
+    <string name="language_preference"> choisie votre langue</string>
+    <string name="message_header_language">Langue</string>
+    <string name="notifications_disable">  Désactiver les notifications  </string>
+    <string name="notifications_enable"> "Activer les notifications  "</string>
+    <string name="notification_workmates_with">"Avec"</string>
+    <string name="notification_message">"Vous avez une déjeûner de prévu"</string>
+    <string name="main_activity_pop_up_notifications_title">NOTIFICATIONS</string>
+    <string name="main_activity_pop_up_notifications_message">Voulez-vous activer les notifications ?</string>
+
+
+
+
+
+</resources>

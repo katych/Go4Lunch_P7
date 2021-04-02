@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,13 +19,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.bumptech.glide.Glide;
 import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
-import com.example.go4lunch.settings.SettingsActivity;
 import com.example.go4lunch.views.fragment.ListRestaurant;
 import com.example.go4lunch.views.fragment.MapsFragment;
 import com.example.go4lunch.views.fragment.WorkmatesList;
@@ -43,11 +40,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -136,23 +131,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             case R.id.drawer_favorite_restaurant:
                 this.showMyFavoriteRestaurant();
-
                 break;
             case R.id.drawer_settings:
-                this.startActivitySettings();
-                Toast.makeText(this, "settings", Toast.LENGTH_LONG).show();
                 break;
             case R.id.drawer_logOut:
                 createAndShowPopUpLogOut();
                 break;
-
-
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
-
 
     public void configureBottomNavigation() {
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
@@ -223,10 +211,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         Intent intent = new Intent(this, FavoritesRestaurantList.class);
         startActivity(intent);
     }
-    private void startActivitySettings() {
-        Intent intent = new Intent(this, SettingsActivity.class);
-        startActivity(intent);
-    }
+
 
     /**
      * create new fragment
@@ -341,5 +326,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
     }
+
+
 
 }

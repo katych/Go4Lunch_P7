@@ -2,7 +2,10 @@ package com.example.go4lunch.api;
 
 import com.example.go4lunch.model.Restaurant;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 
@@ -10,6 +13,10 @@ public class FavoriteRestaurantHelper {
      //filed
     private static final String COLLECTION_NAME = "favorite_restaurant" ;
 
+
+    public static CollectionReference getCollectionRestaurant() {
+        return FirebaseFirestore.getInstance().collection("favorite_restaurant");
+    }
 
     // --- CREATE ---
 
@@ -23,6 +30,9 @@ public class FavoriteRestaurantHelper {
                 .add(restaurantToCreate);
     }
 
+    public static Task<DocumentSnapshot> getRestaurant(String placeId) {
+        return getCollectionRestaurant().document(placeId).get();
+    }
 
 
     public static Query getAllRestaurantsFromWorkers(String name) {

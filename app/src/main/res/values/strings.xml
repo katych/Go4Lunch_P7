@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Go4Lunch</string>
 
-    <string name="facebook_application_id">720875585239902</string>
-    <string name="fb_login_protocol_scheme">fb720875585239902</string>
+    <string name="app_name" translatable="false">Go4Lunch</string>
+
+    <string name="facebook_application_id" translatable="false">720875585239902</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb720875585239902</string>
 
 
     <!-- TWITTER PURPOSE -->
@@ -86,8 +87,6 @@
     <string name="on_Complete_message">On complete</string>
 
 
-
-
     <!-- restaurant favorite activity -->
     <string name="favorites_restaurant">My Favorites Restaurants</string>
     <string name="your_favorite_restaurants">Your favorite restaurants</string>
@@ -95,8 +94,36 @@
     <string name="you_haven_t_choice_restaurant">You haven\'t choose restaurant</string>
 
     <!--Fab labele -->
-    <string name="text1">Filter by :</string>
+    <string name="filter_restaurant_by">Filter restaurant by :</string>
     <string name="Distance">Distance</string>
     <string name="Note">Note</string>
     <string name="Name">Name</string>
+
+
+    <!-- NOTIFICATION SERVICE -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="notification_title">You have received a message</string>
+    <string name="message_from_go4lunch">Message from Go4Lunch</string>
+    <string name="app_logo" translatable="false">app logo</string>
+    <string name="no_worker_has_chosen_this_restaurant">No Worker has chosen this restaurant</string>
+    <string name="enable_notification">Enable notifications</string>
+    <string name="notification_message">"You've a lunch scheduled"</string>
+    <string name="main_activity_pop_up_notifications_title">NOTIFICATIONS</string>
+    <string name="main_activity_pop_up_notifications_message">Do you want to activate notifications ?</string>
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Notifications</string>
+    <string name="location">Location</string>
+    <string name="choose_options">Choose your options</string>
+    <string name="notification_header">Notification</string>
+    <string name="set_notification_rules">Set notifications configuration</string>
+    <string name="language">Language </string>
+    <string name="language_preference"> choose your language</string>
+    <string name="message_header_language">Language</string>
+    <string name="notification_workmates_with">"With"</string>
+
+
+
+
 </resources>

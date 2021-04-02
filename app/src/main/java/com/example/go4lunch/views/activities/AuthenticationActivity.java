@@ -9,11 +9,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
@@ -22,12 +20,10 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.Objects;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

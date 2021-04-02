@@ -12,6 +12,6 @@
     <color name="color_workers">#BEBDBD</color>
     <color name="background">#D3D1D1</color>
     <color name="white_text">#FFF</color>
-    <color name="twitter_button">#327bdb</color>
+    <color name="twitter_button">#ff1da1f2</color>
 
 </resources>
