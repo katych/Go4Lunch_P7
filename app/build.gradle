@@ -116,6 +116,7 @@ android {
         implementation 'com.google.firebase:firebase-messaging:21.0.1'
 
 
+        implementation 'androidx.preference:preference:1.1.0'
 
     }
 }

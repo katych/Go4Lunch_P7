@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 app:fab_colorNormal="@color/colorPrimary"
                 app:fab_colorPressed="@color/colorPrimary"
-                app:fab_icon="@drawable/ic_fab_alphabetical_24dp"
+                app:fab_icon="@drawable/ic_fab_alphabetical"
                 app:fab_size="mini" />
     </LinearLayout>
 

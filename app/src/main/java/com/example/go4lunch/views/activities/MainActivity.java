@@ -24,6 +24,7 @@ import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.base.BaseActivity;
+import com.example.go4lunch.notifications.SettingsActivity;
 import com.example.go4lunch.views.fragment.ListRestaurant;
 import com.example.go4lunch.views.fragment.MapsFragment;
 import com.example.go4lunch.views.fragment.WorkmatesList;
@@ -133,6 +134,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 this.showMyFavoriteRestaurant();
                 break;
             case R.id.drawer_settings:
+                startActivitySettings();
                 break;
             case R.id.drawer_logOut:
                 createAndShowPopUpLogOut();
@@ -212,6 +214,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         startActivity(intent);
     }
 
+    private void startActivitySettings() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     /**
      * create new fragment

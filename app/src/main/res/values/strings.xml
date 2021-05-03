@@ -111,7 +111,6 @@
     <string name="main_activity_pop_up_notifications_title">NOTIFICATIONS</string>
     <string name="main_activity_pop_up_notifications_message">Do you want to activate notifications ?</string>
 
-
     <!-- Preference Titles -->
     <string name="messages_header">Notifications</string>
     <string name="location">Location</string>
@@ -121,8 +120,9 @@
     <string name="language">Language </string>
     <string name="language_preference"> choose your language</string>
     <string name="message_header_language">Language</string>
-    <string name="notification_workmates_with">"With"</string>
-
+    <string name="notification_workmates_with"> With </string>
+    <string name="notifications_disable">  Disable notifications  </string>
+    <string name="notifications_enable"> Enable notifications  </string>
 
 
 

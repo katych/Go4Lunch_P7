@@ -35,6 +35,9 @@
         <activity android:name=".views.activities.FavoritesRestaurantList">
 
         </activity>
+        <activity android:name=".notifications.SettingsActivity">
+
+        </activity>
 
         <!-- NOTIFICATION SERVICE -->
         <service

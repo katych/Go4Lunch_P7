@@ -4,7 +4,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -83,7 +82,7 @@ public class FavoritesRestaurantListAdapter extends FirestoreRecyclerAdapter<Res
     @Override
     public FavoriteItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_restaurant_favoris, parent, false);
+                .inflate(R.layout.item_restaurant_favorite, parent, false);
         return new FavoriteItemViewHolder(view, mFavoritesClickListener);
     }
 

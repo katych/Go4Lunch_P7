@@ -5,10 +5,12 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
+import androidx.preference.PreferenceManager;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.model.Worker;
@@ -23,12 +25,17 @@ import java.util.Objects;
 
 public class NotificationsServices extends FirebaseMessagingService {
 
-    private String restaurant;
+
+    private static final String PREF_NOTIFICATION = "notification_firebase";
+    private String  restaurant;
     private ArrayList<Worker> mWorkers;
+
 
 
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         //get restaurant name
         getRestaurantUser();
         //get workers list
@@ -41,7 +48,8 @@ public class NotificationsServices extends FirebaseMessagingService {
         }
 
         // send message if able
-        if(remoteMessage.getNotification()!= null
+        if(remoteMessage.getNotification()!= null &&
+                sharedPreferences.getBoolean(PREF_NOTIFICATION,true)
                 && restaurant !=null){
 
             // Get message sent by Firebase
@@ -102,8 +110,9 @@ private void showNotifications(String body,String message){
         query.get().addOnCompleteListener(task -> {
             restaurant = "";
             if (task.isSuccessful()){
-                for (QueryDocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())){
+                for (QueryDocumentSnapshot documentSnapshot : Objects.requireNonNull(task.getResult())) {
                     restaurant = Objects.requireNonNull(documentSnapshot.get("restaurantName")).toString();
+
                 }
             }
         });

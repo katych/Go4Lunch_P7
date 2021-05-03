@@ -16,6 +16,6 @@
         android:id="@+id/recyclerView_favorite_restaurant"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_restaurant_favoris"/>
+        tools:listitem="@layout/item_restaurant_favorite"/>
 
 </LinearLayout>

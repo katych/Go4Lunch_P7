@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-
     <!-- AUTHENTICATION ACTIVITY-->
     <string name="text_logo">Go4Lunch</string>
     <string name="text_logo_subtitle">Trouvez un restaurant sympa pour déjeuner avec vos collègues !</string>
