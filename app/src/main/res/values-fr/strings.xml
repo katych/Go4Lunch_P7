@@ -44,7 +44,6 @@
     <string name="title_activity_settings">Paramètres</string>
     <string name="enable_notification">Autoriser les notifications</string>
     <string name="location">Géolocalisation</string>
-    <string name="choose_options">Choisissez vos options :</string>
     <string name="hasn_t_decided">\n n\'a pas encore décidé.</string>
     <string name="is_eating_at">" mange à \n"</string>
     <string name="is_joining">" se joint à vous!"</string>
@@ -71,7 +70,6 @@
     <string name="Note">Note</string>
     <string name="Name">Name</string>
     <string name="language">Langue </string>
-    <string name="language_preference"> choisie votre langue</string>
     <string name="message_header_language">Langue</string>
     <string name="notifications_disable">  Désactiver les notifications  </string>
     <string name="notifications_enable"> "Activer les notifications  "</string>
@@ -79,7 +77,10 @@
     <string name="notification_message">"Vous avez une déjeûner de prévu"</string>
     <string name="main_activity_pop_up_notifications_title">NOTIFICATIONS</string>
     <string name="main_activity_pop_up_notifications_message">Voulez-vous activer les notifications ?</string>
-
+    <string name="french">Francais </string>
+    <string name="english">Englais </string>
+    <string name="current_language"> Francais </string>
+    <string name="chose_your_language">Choisi votre langue</string>
 
 
 

@@ -114,16 +114,30 @@
     <!-- Preference Titles -->
     <string name="messages_header">Notifications</string>
     <string name="location">Location</string>
-    <string name="choose_options">Choose your options</string>
     <string name="notification_header">Notification</string>
     <string name="set_notification_rules">Set notifications configuration</string>
+    <string name="french"> French </string>
+    <string name="english"> English </string>
+    <string name="current_language"> English </string>
+
+    <string name="chose_your_language">Chose your language</string>
     <string name="language">Language </string>
-    <string name="language_preference"> choose your language</string>
     <string name="message_header_language">Language</string>
     <string name="notification_workmates_with"> With </string>
     <string name="notifications_disable">  Disable notifications  </string>
     <string name="notifications_enable"> Enable notifications  </string>
+    <string name="sync_header">Sync</string>
 
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
 
 
 </resources>

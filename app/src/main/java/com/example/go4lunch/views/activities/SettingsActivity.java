@@ -1,8 +1,8 @@
-package com.example.go4lunch.notifications;
+package com.example.go4lunch.views.activities;
+
 
 import android.os.Bundle;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -11,6 +11,7 @@ import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.go4lunch.R;
 import com.example.go4lunch.base.BaseActivity;
+import com.example.go4lunch.notifications.SettingsHeaders;
 
 import java.util.Objects;
 
@@ -40,7 +41,6 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
                 .beginTransaction()
                 .replace(R.id.settings, new SettingsHeaders())
                 .commit();
-
 
         this.configureToolBar(getResources().getString(R.string.settings));
         if (mToolbar != null) {
@@ -73,4 +73,5 @@ public class SettingsActivity extends BaseActivity implements PreferenceFragment
         this.configureToolBar(pref.getTitle().toString());
         return true;
     }
+
 }

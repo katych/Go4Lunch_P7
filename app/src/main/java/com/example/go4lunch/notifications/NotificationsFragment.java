@@ -35,7 +35,6 @@ public class NotificationsFragment extends PreferenceFragmentCompat {
     @Override
     public void onResume() {
         super.onResume();
-
         getPreferenceScreen()
                 .getSharedPreferences()
                 .registerOnSharedPreferenceChangeListener(mOnSharedPreferenceChangeListener);
