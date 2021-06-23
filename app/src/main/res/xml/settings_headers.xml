@@ -8,11 +8,4 @@
         />
 
 
-    <Preference
-        android:fragment="com.example.go4lunch.language.LanguageFragment"
-        android:title="@string/message_header_language"
-        android:summary="@string/chose_your_language"
-        android:icon="@drawable/ic_language"
-        />
-
 </PreferenceScreen>

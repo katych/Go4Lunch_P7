@@ -5,8 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,15 +14,19 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.example.go4lunch.BuildConfig;
 import com.example.go4lunch.R;
 import com.example.go4lunch.api.WorkerHelper;
 import com.example.go4lunch.model.Position;
 import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.viewModel.ViewModel;
+import com.example.go4lunch.views.activities.MainActivity;
 import com.example.go4lunch.views.activities.RestaurantDetails;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -36,6 +40,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.widget.Autocomplete;
+import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -46,11 +56,13 @@ import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
-
-import io.reactivex.observers.DisposableObserver;
 import timber.log.Timber;
+
+import static android.app.Activity.RESULT_OK;
+import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private FusedLocationProviderClient mFusedLocationClient;
@@ -61,19 +73,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private ListenerRegistration mListenerRegistration = null;
     private ArrayList<Worker> mWorkersArrayList;
-
     private static final float DEFAULT_ZOOM = 15;
-    private static final String PREF_ZOOM = "zoom_key";
     private static final String PREF_RADIUS = "radius_key";
     private static final String PREF_TYPE = "type_key";
-
 
 
     //constructor
     public MapsFragment() {
     }
 
-
+    @SuppressLint("RestrictedApi")
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,7 +90,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 .mapType(GoogleMap.MAP_TYPE_NORMAL)
                 .zoomControlsEnabled(true)
                 .zoomGesturesEnabled(true);
-
     }
 
     @Nullable
@@ -91,15 +99,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
         // Location Services
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getContext()));
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
         return view;
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.mGoogleMap = googleMap;
-        mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(this.getContext()), R.raw.maps_style));
-        Timber.i("Map ready");
+        mGoogleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this.requireContext(), R.raw.maps_style));
         final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
         mListenerRegistration = workersRef.addSnapshotListener((queryDocumentSnapshots, e) -> {
             mWorkersArrayList = new ArrayList<>();
@@ -115,7 +122,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             }
         });
         getLocationPermission();
-        viewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity())).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this.requireActivity()).get(ViewModel.class);
 
     }
 
@@ -143,7 +150,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(Objects.requireNonNull(getActivity()), location -> {
+                .addOnSuccessListener(requireActivity(), location -> {
                     if (location != null) {
                         // get the location phone
                         lastPosition = new LatLng(location.getLatitude(), location.getLongitude());
@@ -190,23 +197,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         createUserMarker(ViewModel.generateUserPosition(latLng.latitude, latLng.longitude),
                 mGoogleMap);
         //move camera to user position
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(this.getContext()));
-        float zoom;
-        switch (sharedPreferences.getString(PREF_ZOOM, "")) {
-            case "High":
-                zoom = 18f;
-                break;
-            case "Medium":
-                zoom = 13f;
-                break;
-            case "Less":
-                zoom = 9f;
-                break;
-
-            default:
-                zoom = DEFAULT_ZOOM;
-        }
-        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.requireContext());
+        mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_ZOOM));
         //set my position and enable position button
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(),
@@ -218,7 +210,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         ViewModel.getAllRestaurants(latLng,
                 sharedPreferences.getString(PREF_RADIUS, "2500"),
                 sharedPreferences.getString(PREF_TYPE, "restaurant"))
-                .observe(Objects.requireNonNull(this.getActivity()), this::generateRestaurantPosition);
+                .observe(this.requireActivity(), this::generateRestaurantPosition);
     }
 
 
@@ -226,38 +218,39 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      * create custom marker
      */
 
-    private void setMarkerPosition(Position position, GoogleMap map, int icon) {
+    private void setMarkerPosition(Position position, GoogleMap mGoogleMap, int icon ) {
 
         MarkerOptions markerOptions = new MarkerOptions()
                 .position(new LatLng(position.getLat(), position.getLong()))
                 .title(position.getTitle())
                 .icon(BitmapDescriptorFactory.fromResource(icon));
-        Marker marker = map.addMarker(markerOptions);
+        Marker marker = mGoogleMap.addMarker(markerOptions);
         //Add tag to save restaurant placeId for earlier
         if ((position.getPlaceId() != null)) {
             marker.setTag(position.getPlaceId());
             marker.setTitle(position.getTitle());
+
         }
     }
 
     /**
      * create user marker
      */
-   private void createUserMarker(Position position, GoogleMap map) {
-        setMarkerPosition(position, map, R.drawable.ic_my_position);
+   private void createUserMarker(Position position, GoogleMap mGoogleMap ) {
+
+        setMarkerPosition(position, mGoogleMap, R.drawable.ic_my_position);
+
     }
     /**
      * create marker for all restaurant
-     *
-     * @param position poi
-     * @param map map
      */
-    private void createRestaurantsMarker(Position position, GoogleMap map) {
+    private void createRestaurantsMarker(Position position, GoogleMap mGoogleMap) {
         if (position.isChosen()) {
-            setMarkerPosition(position, map, R.drawable.ic_resto_green2);
+            setMarkerPosition(position, mGoogleMap, R.drawable.ic_resto_green2);
         } else {
-            setMarkerPosition(position, map, R.drawable.ic_resto_red2);
+            setMarkerPosition(position, mGoogleMap, R.drawable.ic_resto_red2);
         }
+
     }
 
     /**
@@ -267,10 +260,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
      */
      private void generateRestaurantPosition(ArrayList<Restaurant> restaurants) {
         List<Position> listPosition = viewModel.generatePositions(restaurants, mWorkersArrayList);
-        for (Position p : listPosition) {
-            createRestaurantsMarker(p, mGoogleMap);
+        for (Position position : listPosition) {
+            createRestaurantsMarker(position, mGoogleMap);
             mGoogleMap.setOnMarkerClickListener(marker -> {
-                launchRestaurantDetail(marker);
+                    launchRestaurantDetail(marker);
                 return true;
             });
         }
@@ -302,5 +295,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         }
         mapFragment.getMapAsync(this);
     }
+
+
+
+
 
 }

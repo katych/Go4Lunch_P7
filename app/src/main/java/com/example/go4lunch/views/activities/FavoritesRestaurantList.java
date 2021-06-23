@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,13 +16,10 @@ import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.views.adapters.FavoritesRestaurantListAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.Query;
-
 import java.util.ArrayList;
 import java.util.Objects;
-
 import butterknife.BindView;
 
-import timber.log.Timber;
 
 public class FavoritesRestaurantList extends BaseActivity implements FavoritesRestaurantListAdapter.favoritesClickListener{
 
@@ -87,7 +83,6 @@ public class FavoritesRestaurantList extends BaseActivity implements FavoritesRe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.search_toolbar) {
-            Timber.i("Search");
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -100,11 +95,9 @@ public class FavoritesRestaurantList extends BaseActivity implements FavoritesRe
     private void initListAdapter() {
         Query query = RepositoryFirebase.getQueryFavoritesRestaurant(mRestaurantFavoriteList,
                 Objects.requireNonNull(getCurrentUser()).getDisplayName());
-
         FirestoreRecyclerOptions<Restaurant> options = new FirestoreRecyclerOptions.Builder<Restaurant>()
                 .setQuery(query, Restaurant.class)
                 .build();
-
         adapter = new FavoritesRestaurantListAdapter(options, this);
         mRecyclerView.setAdapter(adapter);
     }

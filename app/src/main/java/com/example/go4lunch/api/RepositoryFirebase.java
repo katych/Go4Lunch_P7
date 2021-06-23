@@ -5,7 +5,6 @@ import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.List;
 import java.util.Objects;
 import timber.log.Timber;

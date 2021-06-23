@@ -1,13 +1,15 @@
 package com.example.go4lunch;
 
-import android.content.Context;
-
-import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
 
-import org.junit.Test;
+import com.example.go4lunch.views.activities.AuthenticationActivity;
+
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.*;
 
 /**
@@ -17,10 +19,17 @@ import static org.junit.Assert.*;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-    @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.example.go4lunch", appContext.getPackageName());
-    }
+
+        private AuthenticationActivity mActivity;
+
+        @Rule
+        public ActivityTestRule<AuthenticationActivity> mActivityRule =
+                new ActivityTestRule<>(AuthenticationActivity.class);
+
+        @Before
+        public void setUp() {
+            mActivity = mActivityRule.getActivity();
+            assertThat(mActivity, notNullValue());
+        }
+
 }

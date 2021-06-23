@@ -13,7 +13,7 @@ public class DetailRestaurant {
 
     //Constructor
     public DetailRestaurant(String formatted_address, String formatted_phone_number, String name,
-                            String photoReference, double rating, String website) {
+                            String photoReference, double rating, String website ) {
         this.formatted_address = formatted_address;
         this.formatted_phone_number = formatted_phone_number;
         this.name = name;
@@ -47,4 +47,5 @@ public class DetailRestaurant {
     public String getWebsite() {
         return website;
     }
+
 }

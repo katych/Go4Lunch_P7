@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -33,20 +34,17 @@ import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.utils.Utils;
 import com.example.go4lunch.viewModel.ViewModel;
 import com.example.go4lunch.views.adapters.DetailWorkerAdapter;
-import com.example.go4lunch.views.adapters.ListWorkersAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
 import java.util.ArrayList;
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import timber.log.Timber;
 
 
 public class RestaurantDetails extends BaseActivity {
@@ -65,6 +63,10 @@ public class RestaurantDetails extends BaseActivity {
     TextView mRestaurantAddress;
     @BindView(R.id.textLike)
     TextView mTextLike;
+    @BindView(R.id.like)
+    ImageButton likeButton;
+    @BindView(R.id.text_favorite)
+    TextView mTextFavorite;
     @BindView(R.id.noWorkersText)
     TextView mTextNoWorker;
     @BindView(R.id.star1)
@@ -77,8 +79,6 @@ public class RestaurantDetails extends BaseActivity {
     ImageButton callPhone;
     @BindView(R.id.website)
     ImageButton websiteButton;
-    @BindView(R.id.like)
-    ImageButton likeButton;
     @BindView(R.id.favorite_restaurant)
     ImageButton favoriteButton;
     @BindView(R.id.floatingActionButton)
@@ -87,6 +87,8 @@ public class RestaurantDetails extends BaseActivity {
     RecyclerView mRecyclerView;
     private ListenerRegistration mListenerRegistration = null;
     private static final int PERMISSION_CALL = 100;
+    private static final String TAG = "RESTAURANT DETAILS " ;
+
     private String nameRestaurant;
     private String phoneNumber;
     private String websiteUrl;
@@ -96,9 +98,6 @@ public class RestaurantDetails extends BaseActivity {
     private Restaurant mFavoriteRestaurant;
     private boolean isLiked = false;
     private ArrayList<Worker> mWorkers;
-
-
-
 
 
     @Override
@@ -121,7 +120,7 @@ public class RestaurantDetails extends BaseActivity {
         this.configureToolBar("");
 
         if (mToolbar != null) {
-           Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+            Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -135,10 +134,11 @@ public class RestaurantDetails extends BaseActivity {
 
         query = WorkerHelper.getAllWorkers().whereEqualTo("nameWorker",
                 Objects.requireNonNull(getCurrentUser()).getDisplayName());
-         //ViewModel
+
+        getFavoriteRestaurant();
+        //ViewModel
         ViewModel viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         viewModel.getDetailRestaurant(placeId).observe(this, this::updateUi);
-
     }
 
     @Override
@@ -165,9 +165,10 @@ public class RestaurantDetails extends BaseActivity {
         switch (view.getId()) {
             case R.id.floatingActionButton:
                 updateFab();
-            case R.id.like:
-                this.saveRestaurantToFavorite(mFavoriteRestaurant);
                 break;
+            case R.id.like:
+               saveRestaurantToFavorite(mFavoriteRestaurant);
+            break;
             case R.id.favorite_restaurant:
                 this.deleteFavoriteRestaurant();
                 break;
@@ -179,15 +180,22 @@ public class RestaurantDetails extends BaseActivity {
      * @param detailRestaurant restaurant detail information
      */
     private void updateUi(DetailRestaurant detailRestaurant) {
+
         //listen change on worker list
         listenChangeWorkersList();
+
         //path for photo url
         photoPath(detailRestaurant.getPhotoReference());
-        //set name and address
+
+        //set name
         setNameRestaurant(detailRestaurant.getName());
+
+        //set address
         mRestaurantAddress.setText(detailRestaurant.getFormatted_address());
+
         //stars method according to rating
         Utils.starsView(Utils.starsAccordingToRating(detailRestaurant.getRating()), mRestaurantStar1, mRestaurantStar2, mRestaurantStar3);
+
         // Call restaurant if possible
         callPhone.setOnClickListener(v -> setCallPhoneIfPossible(detailRestaurant.getFormatted_phone_number()));
 
@@ -200,8 +208,10 @@ public class RestaurantDetails extends BaseActivity {
                 callWebsiteUrl();
             }
         });
-        mFavoriteRestaurant = new Restaurant("", detailRestaurant.getName(), placeId, detailRestaurant.getFormatted_address(),
+
+        mFavoriteRestaurant = new Restaurant("", detailRestaurant.getName() ,placeId, detailRestaurant.getFormatted_address(),
                 detailRestaurant.getPhotoReference(), detailRestaurant.getRating());
+
         //configure click on like star
         if (mFavoriteRestaurantList != null) {
             for (Restaurant restaurantFavorite : mFavoriteRestaurantList) {
@@ -211,7 +221,9 @@ public class RestaurantDetails extends BaseActivity {
                 }
             }
         }
+
         fabButtonColor();
+
     }
 
 
@@ -296,18 +308,17 @@ public class RestaurantDetails extends BaseActivity {
      *
      * @param restaurant Restaurant
      */
-    private void saveRestaurantToFavorite(Restaurant restaurant) {
-            FavoriteRestaurantHelper.createFavoriteRestaurant(Objects.requireNonNull(getCurrentUser()).getDisplayName(),
-                    restaurant.getUid(), restaurant.getNameRestaurant(), restaurant.getPlaceId(),
-                    restaurant.getAddress(), restaurant.getImage(),
-                    restaurant.getRating()).addOnFailureListener(this.onFailureListener());
-            Utils.showSnackBar(this.mCoordinatorLayout, getString(R.string.favorite_restaurant_message));
-            isLiked = true;
+   private void saveRestaurantToFavorite(Restaurant restaurant) {
+        FavoriteRestaurantHelper.createFavoriteRestaurant(Objects.requireNonNull(getCurrentUser()).getDisplayName(),
+                restaurant.getUid(), restaurant.getNameRestaurant(), restaurant.getPlaceId(),
+                restaurant.getAddress(), restaurant.getImage(),
+                restaurant.getRating()).addOnFailureListener(this.onFailureListener());
+       Utils.showSnackBar(this.mCoordinatorLayout, getString(R.string.favorite_restaurant_message));
+            isLiked = true ;
             updateButtonLike();
             getFavoriteRestaurant();
+
     }
-
-
 
 
     /**
@@ -325,7 +336,6 @@ public class RestaurantDetails extends BaseActivity {
         mFloatingActionButton.setImageResource(isChosen
                 ? R.drawable.ic_check_checked
                 : R.drawable.ic_check_circle_black);
-
     }
 
     /**
@@ -343,7 +353,6 @@ public class RestaurantDetails extends BaseActivity {
                     } else {
                         updateRestaurantChoice(id, nameRestaurant,
                                 placeId, getString(R.string.chosen_restaurant), true);
-
                     }
                 }
             }
@@ -355,18 +364,19 @@ public class RestaurantDetails extends BaseActivity {
      * set the button like appearance
      */
     private void updateButtonLike() {
-        if (isLiked) {
+        if (isLiked ) {
             favoriteButton.setVisibility(View.VISIBLE);
-            mTextLike.setVisibility(View.VISIBLE);
+            mTextFavorite.setVisibility(View.VISIBLE);
             likeButton.setVisibility(View.GONE);
             mTextLike.setVisibility(View.GONE);
         } else {
             favoriteButton.setVisibility(View.GONE);
-            mTextLike.setVisibility(View.GONE);
+            mTextFavorite.setVisibility(View.GONE);
             likeButton.setVisibility(View.VISIBLE);
             mTextLike.setVisibility(View.VISIBLE);
         }
     }
+
 
 
     /**
@@ -386,26 +396,28 @@ public class RestaurantDetails extends BaseActivity {
         });
     }
 
-
     /**
      * create query to have restaurant favorite list
      */
    private void getFavoriteRestaurant() {
-        final Query refRestaurant = FavoriteRestaurantHelper.
-                getAllRestaurantsFromWorkers(Objects.requireNonNull(getCurrentUser()).getDisplayName());
-        refRestaurant.get()
-                .addOnCompleteListener(task -> {
-                    mFavoriteRestaurantList = new ArrayList<>();
-                    for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
-                        Restaurant restaurant = document.toObject(Restaurant.class);
-                        restaurant.setUid(document.getId());
-                        Timber.d("restaurant uid = %s", restaurant.getUid());
-                        mFavoriteRestaurantList.add(restaurant);
-                    }
-                    Timber.d("restaurantFavorite list : %s", mFavoriteRestaurantList.size());
-                });
-    }
 
+       final Query refRestaurant = FavoriteRestaurantHelper.
+               getAllRestaurantsFromWorkers(Objects.requireNonNull(getCurrentUser()).getDisplayName());
+
+       refRestaurant.get()
+               .addOnCompleteListener(task -> {
+                   mFavoriteRestaurantList = new ArrayList<>();
+                   for (QueryDocumentSnapshot document : Objects.requireNonNull(task.getResult())) {
+                       Restaurant restaurant = document.toObject(Restaurant.class);
+                       restaurant.setUid(document.getId());
+                       Log.d(TAG, "resto uid = " + " " + restaurant.getUid() + " " + " placeId " + " " + restaurant.getPlaceId());
+                       mFavoriteRestaurantList.add(restaurant);
+                   }
+                   Log.d(TAG, "restofalist : " + "" + mFavoriteRestaurantList.size());
+
+               });
+
+   }
 
     /**
      * method to delete restaurant if it's in favorite list
@@ -445,7 +457,6 @@ public class RestaurantDetails extends BaseActivity {
 
                         Worker workers = data.toObject(Worker.class);
                         mWorkers.add(workers);
-                        Timber.i("snap workers : %s", mWorkers.size());
                     }
                 }
             }

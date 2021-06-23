@@ -11,7 +11,6 @@ import com.example.go4lunch.pojos.DetailsResult;
 import com.example.go4lunch.pojos.RestaurantsResult;
 import com.example.go4lunch.utils.Utils;
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

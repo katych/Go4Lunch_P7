@@ -1,20 +1,19 @@
 package com.example.go4lunch.utils;
+
 import android.view.View;
 import android.widget.ImageView;
-
-import androidx.annotation.NonNull;
-
 import com.example.go4lunch.model.Restaurant;
 import com.example.go4lunch.model.Worker;
 import com.example.go4lunch.pojos.RestaurantsResult;
 import com.example.go4lunch.pojos.Result;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+
 public abstract class Utils {
+
 
     //Show Snack Bar with a message
     public static void showSnackBar(View view, String message) {
@@ -72,17 +71,19 @@ public abstract class Utils {
     public static ArrayList<Restaurant> getChoiceRestaurants(List<Restaurant> restaurantList, ArrayList<Worker> workers) {
         ArrayList<Restaurant> restaurants = new ArrayList<>();
         restaurants.clear();
-        for (Restaurant r : restaurantList) {
+        for (Restaurant restaurant : restaurantList) {
             int worker = 0;
             for (Worker w : workers) {
-                if (r.getPlaceId().equalsIgnoreCase(w.getPlaceId())) {
+                if (restaurant.getPlaceId().equalsIgnoreCase(w.getPlaceId())) {
                     worker++;
-                    r.setChoice(true);
-                    r.setWorkers(worker);
+                    restaurant.setChoice(true);
+                    restaurant.setWorkers(worker);
                 }
             }
-            restaurants.add(r);
+
+            restaurants.add(restaurant);
         }
+
         return restaurants;
     }
     /**

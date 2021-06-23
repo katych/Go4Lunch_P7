@@ -1,13 +1,10 @@
 package com.example.go4lunch.apiRestaurantPlaces;
 
-import android.util.Log;
 
 import com.example.go4lunch.pojos.Detail;
 import com.example.go4lunch.pojos.RestaurantsResult;
-
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;

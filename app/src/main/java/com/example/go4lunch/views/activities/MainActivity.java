@@ -45,6 +45,7 @@ import java.util.List;
 import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 import static androidx.core.view.GravityCompat.START;
 
@@ -261,12 +262,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     Place.Field.OPENING_HOURS, Place.Field.PHOTO_METADATAS);
             // Define the region
             RectangularBounds bounds = RectangularBounds.newInstance(
+
                     new LatLng(50.6990, 3.0831),
                     new LatLng(50.7182, 3.0865));
-            
+
+                   /* new LatLng(lastPosition.latitude - temp, lastPosition.longitude - temp),
+                    new LatLng(lastPosition.latitude + temp, lastPosition.longitude + temp));*/
+
             // Start the autocomplete intent.
             Intent intent = new Autocomplete.IntentBuilder(AutocompleteActivityMode.OVERLAY, fields)
-                    .setLocationBias(bounds)
+                     .setLocationBias(bounds)
                     .setTypeFilter(TypeFilter.ESTABLISHMENT)
                     .build(MainActivity.this);
 
@@ -331,7 +336,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         });
     }
-
-
 
 }

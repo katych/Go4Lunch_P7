@@ -47,7 +47,7 @@
     <string name="hasn_t_decided">\n n\'a pas encore décidé.</string>
     <string name="is_eating_at">" mange à \n"</string>
     <string name="is_joining">" se joint à vous!"</string>
-    <string name="favorite_restaurants">FAVORITE RESTAURANTS</string>
+    <string name="favorite_restaurants"> restaurant favori </string>
     <string name="text_toolbar">Go4Lunch</string>
     <string name="notification_header">Notifications</string>
     <string name="set_notification_rules">Définissez vos paramètres de notifications</string>
@@ -59,6 +59,7 @@
     <string name="message_from_go4lunch">Message de Go4lunch</string>
     <string name="filter_restaurant_by">Filtrer les restaurants :</string>
     <string name="no_worker_has_chosen_this_restaurant">Personne n\'a choisi ce restaurant</string>
+    <string name="favorite_restaurant_exist"> Restaurant  exist daja  </string>
 
     <!-- MAIN ACTIVITY POP UP MESSAGE-->
     <string name="main_activity_success_log_out">Log out with success</string>

@@ -208,6 +208,15 @@
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/text_favorite"
+                    style="@style/text_style_button_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dislike"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone" />
+
+                <TextView
                     android:id="@+id/textLike"
                     style="@style/text_style_button_detail"
                     android:layout_width="wrap_content"
@@ -264,7 +273,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="@string/No_one_chose_this_restaurant"
+                android:text="@string/no_worker_has_chosen_this_restaurant "
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:visibility="gone"

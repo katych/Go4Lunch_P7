@@ -59,7 +59,6 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
     //constant
     private static final String PREF_RADIUS = "radius_key";
     private static final String PREF_TYPE = "type_key";
-    private static final String TAG = "LIST RESTAURANT";
     private final CollectionReference workersRef = WorkerHelper.getWorkersCollection();
 
     public ListRestaurant() {
@@ -70,8 +69,8 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Location Services
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(Objects.requireNonNull(getContext()));
-        viewModel = ViewModelProviders.of(Objects.requireNonNull(this.getActivity())).get(ViewModel.class);
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
+        viewModel = ViewModelProviders.of(this.requireActivity()).get(ViewModel.class);
 
     }
 
@@ -124,7 +123,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
             return;
         }
         mFusedLocationClient.getLastLocation()
-                .addOnSuccessListener(Objects.requireNonNull(getActivity()), location -> {
+                .addOnSuccessListener(requireActivity(), location -> {
                     if (location != null) {
                         // get the location phone
                         currentPosition = new LatLng(location.getLatitude(), location.getLongitude());
@@ -132,7 +131,7 @@ public class ListRestaurant extends Fragment implements RestaurantListAdapter.on
                         viewModel.getAllRestaurants(currentPosition,
                                 sharedPreferences.getString(PREF_RADIUS, "2500"),
                                 sharedPreferences.getString(PREF_TYPE, "restaurant"))
-                                .observe(Objects.requireNonNull(this.getActivity()), this::initListAdapter);
+                                .observe(this.requireActivity(), this::initListAdapter);
 
                     }
                 });

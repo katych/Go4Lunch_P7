@@ -1,14 +1,5 @@
 [
   {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels",
-    "stylers": [
-      {
-        "visibility": "off"
-      }
-    ]
-  },
-  {
     "featureType": "poi",
     "elementType": "labels.icon",
     "stylers": [

@@ -2,12 +2,9 @@ package com.example.go4lunch.apiRestaurantPlaces;
 
 import com.example.go4lunch.pojos.Detail;
 import com.example.go4lunch.pojos.RestaurantsResult;
-
 import java.util.Map;
-
 import io.reactivex.Observable;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface RestaurantService {

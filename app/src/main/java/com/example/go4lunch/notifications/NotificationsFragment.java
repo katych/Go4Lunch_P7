@@ -2,12 +2,9 @@ package com.example.go4lunch.notifications;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
 import androidx.preference.PreferenceFragmentCompat;
 import androidx.preference.SwitchPreferenceCompat;
-
 import com.example.go4lunch.R;
-
 import java.util.Objects;
 
 

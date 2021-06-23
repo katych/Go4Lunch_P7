@@ -3,8 +3,6 @@ package com.example.go4lunch.model;
 
 import com.example.go4lunch.pojos.Location;
 
-import java.util.Comparator;
-
 public class Restaurant  {
 
     private String uid;
